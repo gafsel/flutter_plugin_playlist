@@ -33,9 +33,9 @@ class RmxAudioPlayer {
   Completer _initCompleter;
 
   /**
-   * 'unknown' | 'ready' | 'error' | 'playing' | 'loading' | 'paused' | 'stopped' = 'unknown'
+   * 'unknown' | 'ready' | 'error' | 'playing' | 'loading' | 'paused' | 'stopped'
    */
-  String _currentState;
+  String _currentState = 'unknown';
   bool _hasError = false;
   bool _hasLoaded = false;
   AudioTrack _currentItem = null;
@@ -95,6 +95,9 @@ class RmxAudioPlayer {
     return this._currentState == 'loading';
   }
 
+  /**
+   * True if the plugin is seeking
+   */
   get isSeeking {
     return this._currentState == 'seeking';
   }
@@ -514,5 +517,3 @@ class RmxAudioPlayer {
   }
 
 }
-
-RmxAudioPlayer rmxAudioPlayer = new RmxAudioPlayer();

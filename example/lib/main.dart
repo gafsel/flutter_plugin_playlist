@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_plugin_playlist/flutter_plugin_playlist.dart';
 
+RmxAudioPlayer rmxAudioPlayer = new RmxAudioPlayer();
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {

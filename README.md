@@ -1,6 +1,6 @@
 # flutter_plugin_playlist
 
-A Flutter plugin for Android and iOS with native support for audio playlists, background support, and lock screen controls
+A Flutter plugin for Android and iOS with native support for audio playlists, background support, and lock screen controls.
 
 This project is a starting point for a Flutter
 [plug-in package](https://flutter.dev/developing-packages/),
@@ -13,35 +13,21 @@ samples, guidance on mobile development, and a full API reference.
 
 # IMPORTANT
 
-This plugin is a convertion of [cordova-plugin-playlist](https://github.com/Rolamix/cordova-plugin-playlist)
+First of all, I'd like to give a special thank you to [codinronan](https://github.com/codinronan) for his exeptional work on the original plugin. It made my work in my apps a lot easier.
+
+This plugin is an adaptation of [cordova-plugin-playlist](https://github.com/Rolamix/cordova-plugin-playlist)
 to a Flutter plugin. The native source code and the documentation was based on it.
 
 ## 0. Index
 
-1. [Background](#1-background)
-2. [Notes](#2-notes)
+1. [Notes](#1-notes)
 2. [Installation](#2-installation)
 3. [Usage](#3-usage)
 4. [Todo](#4-todo)
 5. [Credits](#5-credits)
 6. [License](#6-license)
 
-## 1. Background
-
-I have worked with [cordova-plugin-media](https://github.com/apache/cordova-plugin-media) for quite a long time and have pushed it pretty far. In the end it's not designed for certain use cases and I ultimately decided to apply what I had learned, and issues I have seen others have, to create a plugin that better addresses those use cases.
-
-Both Android and iOS have special support for playlist-based playback, and the native implementation provides a superior user experience over attempting to implement a playlist out of an interface designed for single-item playback. Also, it is not possible to implement continuous playback using `cordova-plugin-media` on iOS, since the space between songs in the background will stop playback. This plugin addresses that, in addition to including support for command center and lock screen controls.
-
-* Playlist support is implemented in native code
-* Native playlists mean better support for continual playback in the background
-* Background playback is optional - opt-in via runtime config and config.xml flags
-* Includes support for lock-screen controls
-* Works just as well for a single item as it does for a playlist
-* Fully supports streaming URLs, with control of seek-pause behavior (does play resume from where you paused, or does it resume from current live position?)
-* Compatible with [Cordova Plugman](https://github.com/apache/cordova-plugman).
-* For Android and iOS
-
-## 2. Notes
+## 1. Notes
 
 ### On *Android*, utilizes a wrapper over ExoPlayer called [ExoMedia](https://github.com/brianwernick/ExoMedia). ExoPlayer is a powerful, high-quality player for Android provided by Google
 ### On iOS, utilizes a customized AVQueuePlayer in order to provide feedback about track changes, buffering, etc.; given that AVQueuePlayer can keep the audio session running between songs.
@@ -56,40 +42,125 @@ Both Android and iOS have special support for playlist-based playback, and the n
 
 ## 2. Installation
 
-As with most cordova plugins...
+Add `flutter_plugin_playlist` as a dependency in pubspec.yml
+
+For help on adding as a dependency, view the [documentation](https://flutter.io/using-packages/).
+
+### Background Mode
+
+* Android
+
+    Android normally will give you ~2-3 minutes of background playback before killing your audio. Adding the WAKE_LOCK permission allows the plugin to utilize additional permissions to continue playing.
 
 ```
-cordova plugin add cordova-plugin-playlist
+<uses-permission android:name="android.permission.WAKE_LOCK" />
 ```
 
-Rather than oblige all developers to include background permissions, add the following to your `config.xml` if you wish to support continuing to play audio in the background:
+* iOS
 
-### Android - inside `<platform name="android">`:
-```
-<config-file target="AndroidManifest.xml" parent="/*">
-  <uses-permission android:name="android.permission.WAKE_LOCK" />
-</config-file>
-```
-
-### iOS - inside `<platform name="ios">`:
-```
-<config-file target="*-Info.plist" parent="UIBackgroundModes">
-  <array>
-    <string>audio</string>
-  </array>
-</config-file>
-```
-
-Android normally will give you ~2-3 minutes of background playback before killing your audio. Adding the WAKE_LOCK permission allows the plugin to utilize additional permissions to continue playing.
-
-iOS will immediately stop playback when the app goes into the background if you do not include the `audio` `UIBackgroundMode`. iOS has an additional requirement that audio playback must never stop; when it does, the audio session will be terminated and playback cannot continue without user interaction.
+    iOS will immediately stop playback when the app goes into the background if you do not include the `audio` `UIBackgroundMode`. iOS has an additional requirement that audio playback must never stop; when it does, the audio session will be terminated and playback cannot continue without user interaction.
 
 ## 3. Usage
 
-Be sure to check out the examples folder, where you can find an Angular5/Ionic implementation of the Cordova plugin.
-Just drop into your project and go.
+Import the library with:
+
+```dart
+import 'package:flutter_plugin_playlist/flutter_plugin_playlist.dart';
+```
+
+Use the class `RmxAudioPlayer` for interacting directly with the plugin.
+
+```dart
+RmxAudioPlayer player = new RmxAudioPlayer();
+
+player.initialize();
+
+player.on('status', (eventName, arguments) {
+
+   // TODO handle the status update
+
+});
+
+rmxAudioPlayer.setPlaylistItems(
+        [
+          new AudioTrack(
+              album: "Friends",
+              artist: "Bon Jovi",
+              assetUrl: "https://www.soundboard.com/mediafiles/22/223554-d1826dea-bfc3-477b-a316-20ded5e63e08.mp3",
+              title: "I'll be there for you"
+          ),
+          new AudioTrack(
+              album: "Friends",
+              artist: "Ross",
+              assetUrl: "https://www.soundboard.com/mediafiles/22/223554-fea5dfff-6c80-4e13-b0cf-9926198f50f3.mp3",
+              title: "The Sound"
+          ),
+          new AudioTrack(
+              album: "Friends",
+              artist: "Friends",
+              assetUrl: "https://www.soundboard.com/mediafiles/22/223554-3943c7cb-46e0-48b1-a954-057b71140e49.mp3",
+              title: "F.R.I.E.N.D.S"
+          ),
+        ],
+        options: new PlaylistItemOptions(
+          startPaused: true,
+        )
+    );
+
+rmxAudioPlayer.play();	
+
+```
+
+These are the available resources:
+
+* **initialize()**: Initializes the player (**MUST BE CALL FIRST OF ALL**)
+* **currentState**: Returns the player current state in *unknown*, 
+*ready*, *error*, *playing*, *loading*, *paused*, *stopped*
+* **isInitialized**: If the player is initialized
+* **currentTrack**: Returns the current track in the playlist
+* **isStopped**: If the player is stopped
+* **isPlaying**: If the player is playing
+* **isPaused**: If the player is paused
+* **isLoading**: If the player is loading
+* **isSeeking**: If the player is seeking
+* **hasLoaded**: True if the *currently playing track* has been loaded and can be played (this includes if it is *currently playing*).
+* **hasError**: True if the *current track* has reported an error
+* **ready()**: Returns a Future for when the player is initialized
+* **setOptions(AudioPlayerOptions options)**: Sets the player options. This can be called at any time and is not required before playback can be initiated.
+* **setPlaylistItems(List<AudioTrack> items, {PlaylistItemOptions options})**: Sets the entire list of tracks to be played by the playlist.
+* **addItem(AudioTrack trackItem)**: Add a single track to the end of the playlist
+* **addAllItems(List<AudioTrack> items)**: Adds the list of tracks to the end of the playlist.
+* **removeItem(AudioTrackRemoval removeItem)**: Removes a track from the playlist. If this is the currently playing item, the next item will automatically begin playback.
+* **removeItems(List<AudioTrackRemoval> items)**: Removes all given tracks from the playlist; these can be specified either by trackId or trackIndex.
+* **clearAllItems()**: Clear the entire playlist. This will result in the STOPPED event being raised.
+* **play()**: Begin playback. If no tracks have been added, this has no effect.
+* **playTrackByIndex(num index, {num position})**: Play the track at the given index. If the track does not exist, this has no effect.
+* **playTrackById(String trackId, {num position})**: Play the track matching the given trackId. If the track does not exist, this has no effect.
+* **pause()**: Pause playback
+* **skipForward()**: Skip to the next track. If you are already at the end, and loop is false, this has no effect.
+* **skipBack()**: Skip to the previous track. If you are already at the beginning, this has no effect.
+* **seekTo(num position)**: Seek to the given position in the currently playing track.
+* **seekToQueuePosition(num position)**: (iOS only): Seek to the given position in the *entire queue of songs*.
+* **setPlaybackRate(num rate)**: Set the playback speed
+* **setVolume(num volume)**: Set the playback volume
+* **setLoop(bool loop)**: Sets a flag indicating whether the playlist should loop back to the beginning once it reaches the end.
+* **getPlaybackRate()**: Reports the current playback rate.
+* **getVolume()**: Reports the current playback volume
+* **getPosition()**: Reports the playback position of the current item.
+* **getCurrentBuffer()**: Reports the buffer status of the current item.
+* **getQueuePosition()**: (iOS only): Gets the overall playback position in the entire queue, in seconds (e.g. 1047 seconds).
+* **on(String eventName, AudioPlayerEventHandler callback)**: Subscribe to events raised by the plugin, e.g. on('status', (data) => { ... }). For now, only 'status' is supported.
+* **off(String eventName, AudioPlayerEventHandler handler)**: Remove an event handler from the plugin
+
+Make sure to check the example and also the original cordova plugin for more details.
 
 ## 4. Todo
+
+A fast adaptation was the easier solution to my specific needs, so there is lots to improve in the dart code, like creating flutter widgets to encapsulate the service manipulation.
+
+Any evolutions are welcome.
+
+Plus, what was mapped by cordova-plugin-playlist:
 
 There's so much more to do on this plugin. Some items I would like to see added if anyone wants to help:
 * [iOS, Android] Add support for recording, similar to what is provided by `cordova-plugin-media`
@@ -102,13 +173,8 @@ There's so much more to do on this plugin. Some items I would like to see added 
 
 ## 5. Credits
 
-There are several plugins that are similar to this one, but all are focused on aspects of the media management experience. This plugin takes inspiration from:
+As already mentioned, this plugin is an adaptation of cordova-plugin-playlist:
 * [cordova-plugin-playlist](https://github.com/Rolamix/cordova-plugin-playlist)
-* [cordova-plugin-media](https://github.com/apache/cordova-plugin-media)
-* [ExoMedia](https://github.com/brianwernick/ExoMedia)
-* [PlaylistCore](https://github.com/brianwernick/PlaylistCore) (provides player controls on top of ExoMedia)
-* [Bi-Directional AVQueuePlayer proof of concept](https://github.com/jrtaal/AVBidirectionalQueuePlayer)
-* [cordova-music-controls-plugin](https://github.com/homerours/cordova-music-controls-plugin)
 
 ## 6. License
 

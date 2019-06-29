@@ -2,8 +2,6 @@
     package="org.gafs.flutter_plugin_playlist_example">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
@@ -15,8 +13,6 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="flutter_plugin_playlist_example"
         android:icon="@mipmap/ic_launcher">
-
-        <service android:name="org.gafs.flutter_plugin_playlist.service.MediaService"></service>
 
         <activity
             android:name=".MainActivity"
