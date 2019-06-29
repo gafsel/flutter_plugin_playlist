@@ -10,11 +10,12 @@ A Flutter plugin for Android and iOS with native support for audio playlists, ba
                        DESC
   s.homepage         = 'http://example.com'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'Gabriel Silva' => 'gabrielfsilva.ti@gmail.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
+  s.frameworks = 'AVFoundation', 'MediaPlayer'
 
   s.ios.deployment_target = '8.0'
 end

@@ -7,24 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5003b8aa-1a06-47c3-9125-4d30128bbd07" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Flutter/Debug.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Flutter/Debug.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Flutter/Release.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Flutter/Release.xcconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcodeproj/project.pbxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Runner.xcworkspace/contents.xcworkspacedata" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Runner.xcworkspace/contents.xcworkspacedata" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/AudioTrack.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/AudioTrack.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/FlutterPluginPlaylistPlugin.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/FlutterPluginPlaylistPlugin.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/FlutterPluginPlaylistPlugin.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/FlutterPluginPlaylistPlugin.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/MainViewController+RmxAudioPlayer.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/MainViewController+RmxAudioPlayer.m" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/RmxAudioPlayer.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/RmxAudioPlayer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/RmxAudioPlayer.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/RmxAudioPlayer.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/interfaces.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/interfaces.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/rmx_audio_player.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/rmx_audio_player.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,44 +21,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ios/Classes/FlutterPluginPlaylistPlugin.m">
+      <file leaf-file-name="main.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            <state relative-caret-position="174">
+              <caret line="29" column="67" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="67" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/interfaces.dart">
+      <file leaf-file-name="rmx_audio_player.dart" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/rmx_audio_player.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="431">
-              <caret line="234" column="29" selection-start-line="234" selection-start-column="23" selection-end-line="234" selection-end-column="29" />
+            <state relative-caret-position="67">
+              <caret line="300" column="53" lean-forward="true" selection-start-line="300" selection-start-column="53" selection-end-line="300" selection-end-column="53" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ios/Classes/RmxAudioPlayer.m">
+      <file leaf-file-name="flutter_plugin_playlist.podspec" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ios/flutter_plugin_playlist.podspec">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="201" column="20" selection-start-line="201" selection-start-column="20" selection-end-line="201" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ios/Classes/AVBidirectionalQueuePlayer.m">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ios/Classes/FlutterPluginPlaylistPlugin.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="3" column="64" selection-start-line="3" selection-start-column="41" selection-end-line="3" selection-end-column="64" />
-            </state>
+            <state relative-caret-position="-102" />
           </provider>
         </entry>
       </file>
@@ -88,7 +64,6 @@
       <find>110</find>
       <find>10</find>
       <find>45</find>
-      <find>currentPosition</find>
       <find>60</find>
       <find>activateAudioSession</find>
       <find>observeLifeCycle</find>
@@ -101,6 +76,8 @@
       <find>(void) play</find>
       <find>[self onStatus:</find>
       <find>toJson</find>
+      <find>!=</find>
+      <find>currentPosition</find>
     </findStrings>
     <replaceStrings>
       <replace>org.gafs.flutter_plugin_playlist</replace>
@@ -126,12 +103,12 @@
         <option value="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/lib/flutter_plugin_playlist.dart" />
         <option value="$PROJECT_DIR$/test/flutter_plugin_playlist_test.dart" />
-        <option value="$PROJECT_DIR$/lib/rmx_audio_player.dart" />
         <option value="$PROJECT_DIR$/example/lib/main.dart" />
         <option value="$PROJECT_DIR$/ios/Classes/RmxAudioPlayer.h" />
         <option value="$PROJECT_DIR$/ios/Classes/FlutterPluginPlaylistPlugin.m" />
         <option value="$PROJECT_DIR$/ios/Classes/RmxAudioPlayer.m" />
         <option value="$PROJECT_DIR$/lib/interfaces.dart" />
+        <option value="$PROJECT_DIR$/lib/rmx_audio_player.dart" />
       </list>
     </option>
   </component>
@@ -146,13 +123,13 @@
     <option name="width" value="1680" />
     <option name="height" value="947" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -163,16 +140,22 @@
             <path>
               <item name="flutter_plugin_playlist" type="b2602c69:ProjectViewProjectNode" />
               <item name="flutter_plugin_playlist" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="ios" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="flutter_plugin_playlist" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
+            <path>
+              <item name="flutter_plugin_playlist" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -210,6 +193,12 @@
     </option>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method>
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -225,12 +214,6 @@
         <value defaultName="singleModule" />
       </option>
       <patterns />
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <configuration default="true" type="TestNG">
       <option name="TEST_OBJECT" value="CLASS" />
@@ -253,81 +236,104 @@
       <option name="presentableId" value="Default" />
       <updated>1561742584215</updated>
       <workItem from="1561742642047" duration="14447000" />
-      <workItem from="1561776120410" duration="17075000" />
+      <workItem from="1561776120410" duration="18428000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31522000" />
+    <option name="totallyTimeSpent" value="32875000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="947" extended-state="0" />
+    <frame x="67" y="25" width="1299" height="743" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24231465" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Image Layers" order="3" />
-      <window_info id="Favorites" order="4" side_tool="true" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="Resources Explorer" order="6" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32843137" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32843137" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.43464053" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="right" x="0" y="0" width="274" height="543" id="Documentation" side_tool="true" weight="0.32960895" />
+      <window_info anchor="bottom" id="Flutter Performance" order="7" side_tool="true" />
+      <window_info anchor="right" id="Maven Projects" order="3" />
+      <window_info anchor="bottom" id="Database Changes" order="7" weight="0.3295082" />
       <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32843137" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32843137" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="right" id="Flutter Outline" order="3" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.25409836" />
+      <window_info id="Designer" order="2" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2386273" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.45901638" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.43464053" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" id="Flutter Inspector" order="3" />
+      <window_info id="Designer" order="2" />
+      <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32843137" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32843137" />
+      <window_info id="Image Layers" order="3" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" id="Flutter Inspector" order="3" />
+      <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.30555555" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="right" x="0" y="0" width="274" height="543" id="Documentation" order="9" side_tool="true" weight="0.32960895" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24231465" />
+      <window_info anchor="right" id="Flutter Outline" order="4" />
+      <window_info anchor="right" id="Assistant" order="11" visible="true" weight="0.17887668" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
       <window_info anchor="bottom" id="Version Control" order="11" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Flutter Performance" order="12" side_tool="true" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Flutter Inspector" order="3" />
-      <window_info anchor="right" id="Flutter Outline" order="4" />
       <window_info anchor="right" id="Maven Projects" order="5" />
+      <window_info anchor="bottom" id="Flutter Performance" order="12" side_tool="true" />
+      <window_info id="Resources Explorer" order="6" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32843137" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Capture Analysis" order="8" />
-      <window_info anchor="right" x="0" y="0" width="274" height="543" id="Documentation" order="9" side_tool="true" weight="0.32960895" />
       <window_info anchor="right" id="Theme Preview" order="10" />
-      <window_info anchor="right" id="Assistant" order="11" visible="true" weight="0.17887668" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.43464053" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.2386273" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
-      <window_info id="Image Layers" order="3" />
-      <window_info id="Favorites" order="4" side_tool="true" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32843137" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32843137" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.43464053" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="bottom" id="Dart Analysis" order="7" weight="0.32843137" />
+      <window_info id="Image Layers" order="3" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32843137" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" id="Flutter Inspector" order="3" />
+      <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.30555555" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="8" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="right" x="0" y="0" width="274" height="543" id="Documentation" order="9" side_tool="true" weight="0.32960895" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24231465" />
+      <window_info anchor="right" id="Flutter Outline" order="4" />
+      <window_info anchor="right" id="Assistant" order="11" visible="true" weight="0.17887668" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
       <window_info anchor="bottom" id="Version Control" order="11" show_stripe_button="false" />
+      <window_info anchor="right" id="Maven Projects" order="5" />
       <window_info anchor="bottom" id="Flutter Performance" order="12" side_tool="true" />
-      <window_info anchor="right" x="0" y="0" width="274" height="543" id="Documentation" order="0" side_tool="true" weight="0.32960895" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
-      <window_info anchor="right" id="Flutter Inspector" order="4" />
-      <window_info anchor="right" id="Flutter Outline" order="5" />
-      <window_info anchor="right" id="Maven Projects" order="6" />
-      <window_info anchor="right" id="Database" order="7" />
-      <window_info anchor="right" id="Palette&#9;" order="8" />
-      <window_info anchor="right" id="Capture Analysis" order="9" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info id="Resources Explorer" order="6" />
       <window_info anchor="right" id="Theme Preview" order="10" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32843137" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.43464053" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -385,6 +391,34 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/ios/Classes/MainViewController+RmxAudioPlayer.h">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ios/Classes/MainViewController+RmxAudioPlayer.m">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ios/Classes/RmxAudioPlayer.h" />
+    <entry file="file://$PROJECT_DIR$/ios/Classes/AudioTrack.m" />
+    <entry file="file://$PROJECT_DIR$/ios/Classes/Constants.h" />
+    <entry file="file://$PROJECT_DIR$/ios/Classes/FlutterPluginPlaylistPlugin.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="64" selection-start-line="2" selection-start-column="41" selection-end-line="2" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ios/Classes/FlutterPluginPlaylistPlugin.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ios/Classes/RmxAudioPlayer.m">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2160" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md" />
     <entry file="file://$PROJECT_DIR$/android/src/main/java/org/gafs/flutter_plugin_playlist/TrackRemovalItem.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -474,12 +508,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/android/src/main/res/drawable/img_playlist_notif_default.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/android/src/main/res/drawable/img_playlist_artwork_default.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/index.dart" />
     <entry file="file://$PROJECT_DIR$/lib/flutter_plugin_playlist.dart">
       <provider selected="true" editor-type-id="text-editor">
@@ -504,51 +532,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/rmx_audio_player.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="67" column="16" selection-start-line="67" selection-start-column="16" selection-end-line="67" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="181" column="7" selection-start-line="181" selection-start-column="7" selection-end-line="181" selection-end-column="7" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/example/test/widget_test.dart" />
-    <entry file="file://$PROJECT_DIR$/ios/Classes/AudioTrack.h" />
+    <entry file="file://$PROJECT_DIR$/ios/Classes/AudioTrack.h">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/ios/Classes/MainViewController+RmxAudioPlayer.h" />
     <entry file="file://$PROJECT_DIR$/ios/Classes/MainViewController+RmxAudioPlayer.m" />
-    <entry file="file://$PROJECT_DIR$/ios/Classes/RmxAudioPlayer.h" />
-    <entry file="file://$PROJECT_DIR$/ios/Classes/AudioTrack.m" />
-    <entry file="file://$PROJECT_DIR$/ios/Classes/Constants.h" />
+    <entry file="file://$PROJECT_DIR$/ios/Classes/RmxAudioPlayer.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="20" column="25" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ios/Classes/AudioTrack.m">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ios/Classes/Constants.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="27" column="21" selection-start-line="27" selection-start-column="14" selection-end-line="27" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ios/Classes/FlutterPluginPlaylistPlugin.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
+        <state relative-caret-position="51">
           <caret line="3" column="64" selection-start-line="3" selection-start-column="41" selection-end-line="3" selection-end-column="64" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ios/Classes/RmxAudioPlayer.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="201" column="20" selection-start-line="201" selection-start-column="20" selection-end-line="201" selection-end-column="20" />
+        <state relative-caret-position="175">
+          <caret line="192" column="17" selection-start-line="192" selection-start-column="17" selection-end-line="192" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ios/Classes/AVBidirectionalQueuePlayer.m">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/ios/Classes/FlutterPluginPlaylistPlugin.m">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="255">
+          <caret line="87" column="38" selection-start-line="87" selection-start-column="11" selection-end-line="87" selection-end-column="38" />
         </state>
       </provider>
     </entry>
@@ -557,6 +581,28 @@
         <state relative-caret-position="431">
           <caret line="234" column="29" selection-start-line="234" selection-start-column="23" selection-end-line="234" selection-end-column="29" />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="29" column="67" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="67" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/rmx_audio_player.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="67">
+          <caret line="300" column="53" lean-forward="true" selection-start-line="300" selection-start-column="53" selection-end-line="300" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ios/flutter_plugin_playlist.podspec">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-102" />
       </provider>
     </entry>
   </component>

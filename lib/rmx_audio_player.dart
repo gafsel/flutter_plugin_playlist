@@ -297,8 +297,8 @@ class RmxAudioPlayer {
    * Seek to the given position in the currently playing track. If the value exceeds the track length,
    * the track will complete and playback of the next track will begin.
    */
-  Future<dynamic> seekTo(num position) {
-    dynamic status = _exec('seekTo', position);
+  Future<dynamic> seekTo(num position) async {
+    dynamic status = await _exec('seekTo', position);
 
     _onStatus(currentTrack?.trackId, RmxAudioStatusMessage.RMXSTATUS_SEEK, status);
 
