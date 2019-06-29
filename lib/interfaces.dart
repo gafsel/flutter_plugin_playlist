@@ -46,10 +46,12 @@ class AudioPlayerOptions {
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      'verbose': verbose,
-      'resetStreamOnPause': resetStreamOnPause
-    };
+    Map<String, dynamic> json = new Map();
+
+    if (resetStreamOnPause != null) json['resetStreamOnPause']=resetStreamOnPause;
+    if (verbose != null) json['verbose']=verbose;
+
+    return json;
   }
 }
 
@@ -88,12 +90,14 @@ class PlaylistItemOptions {
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      'playFromId': playFromId,
-      'playFromPosition': playFromPosition,
-      'retainPosition': retainPosition,
-      'startPaused': startPaused
-    };
+    Map<String, dynamic> json = new Map();
+
+    if (playFromId != null) json['playFromId']=playFromId;
+    if (playFromPosition != null) json['playFromPosition']=playFromPosition;
+    if (retainPosition != null) json['retainPosition']=retainPosition;
+    if (startPaused != null) json['startPaused']=startPaused;
+
+    return json;
   }
 }
 
@@ -158,15 +162,17 @@ class AudioTrack {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'trackId': trackId,
-      'isStream': isStream,
-      'album': album,
-      'albumArt': albumArt,
-      'artist': artist,
-      'assetUrl': assetUrl,
-      'title': title,
-    };
+    Map<String, dynamic> json = new Map();
+
+    if (trackId != null) json['trackId']=trackId;
+    if (isStream != null) json['isStream']=isStream;
+    if (album != null) json['album']=album;
+    if (albumArt != null) json['albumArt']=albumArt;
+    if (artist != null) json['artist']=artist;
+    if (assetUrl != null) json['assetUrl']=assetUrl;
+    if (title != null) json['title']=title;
+
+    return json;
   }
 }
 
@@ -191,10 +197,12 @@ class AudioTrackRemoval {
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      'trackId': trackId,
-      'trackIndex': trackIndex,
-    };
+    Map<String, dynamic> json = new Map();
+
+    if (trackId != null) json['trackId']=trackId;
+    if (trackIndex != null) json['trackIndex']=trackIndex;
+
+    return json;
   }
 }
 
@@ -225,11 +233,13 @@ class OnStatusCallbackData {
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      'trackId': trackId,
-      'value': value,
-      'type': type,
-    };
+    Map<String, dynamic> json = new Map();
+
+    if (trackId != null) json['trackId']=trackId;
+    if (value != null) json['value']=value;
+    if (type != null) json['type']=type;
+
+    return json;
   }
 }
 
@@ -274,14 +284,16 @@ class OnStatusTrackChangedData {
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      'currentIndex': currentIndex,
-      'currentItem': currentItem,
-      'hasNext': hasNext,
-      'hasPrevious': hasPrevious,
-      'isAtBeginning': isAtBeginning,
-      'isAtEnd': isAtEnd,
-    };
+    Map<String, dynamic> json = new Map();
+
+    if (currentIndex != null) json['currentIndex']=currentIndex;
+    if (currentItem != null) json['currentItem']=currentItem;
+    if (hasNext != null) json['hasNext']=hasNext;
+    if (hasPrevious != null) json['hasPrevious']=hasPrevious;
+    if (isAtBeginning != null) json['isAtBeginning']=isAtBeginning;
+    if (isAtEnd != null) json['isAtEnd']=isAtEnd;
+
+    return json;
   }
 }
 
@@ -352,18 +364,20 @@ class OnStatusCallbackUpdateData {
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      'status': status,
-      'bufferEnd': bufferEnd,
-      'bufferPercent': bufferPercent,
-      'bufferStart': bufferStart,
-      'currentIndex': currentIndex,
-      'currentPosition': currentPosition,
-      'duration': duration,
-      'isStream': isStream,
-      'playbackPercent': playbackPercent,
-      'trackId': trackId,
-    };
+    Map<String, dynamic> json = new Map();
+
+    if (status != null) json['status']=status;
+    if (bufferEnd != null) json['bufferEnd']=bufferEnd;
+    if (bufferPercent != null) json['bufferPercent']=bufferPercent;
+    if (bufferStart != null) json['bufferStart']=bufferStart;
+    if (currentIndex != null) json['currentIndex']=currentIndex;
+    if (currentPosition != null) json['currentPosition']=currentPosition;
+    if (duration != null) json['duration']=duration;
+    if (isStream != null) json['isStream']=isStream;
+    if (playbackPercent != null) json['playbackPercent']=playbackPercent;
+    if (trackId != null) json['trackId']=trackId;
+
+    return json;
   }
 }
 
@@ -386,10 +400,12 @@ class OnStatusErrorCallbackData {
   });
 
   Map<String, dynamic> toJson() {
-    return {
-      'code': code,
-      'message': message,
-    };
+    Map<String, dynamic> json = new Map();
+
+    if (code != null) json['code']=code;
+    if (message != null) json['message']=message;
+
+    return json;
   }
 
 }

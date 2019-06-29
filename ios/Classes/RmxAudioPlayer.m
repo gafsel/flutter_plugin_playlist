@@ -20,6 +20,7 @@ static char kPlayerItemTimeRangesContext;
     BOOL _isWaitingToStartPlayback;
 }
 
+@property () RmxAudioPlayerEventListener eventListener;
 @property (nonatomic, strong) AVBidirectionalQueuePlayer* avQueuePlayer;
 @property (nonatomic) NSMutableArray* currentItems;
 //@property (nonatomic) NSUInteger currentIndex;
@@ -35,8 +36,9 @@ static char kPlayerItemTimeRangesContext;
 
 @implementation RmxAudioPlayer
 
-- (void) pluginInitialize
+- (void) pluginInitialize:(RmxAudioPlayerEventListener)eventListener
 {
+    self.eventListener = eventListener;
     _playbackTimeObserver = nil;
     _wasPlayingInterrupted = NO;
     _commandCenterRegistered = NO;
@@ -72,7 +74,7 @@ static char kPlayerItemTimeRangesContext;
 {
     NSLog(@"RmxAudioPlayer.execute=initialize");
     [self onStatus:RMXSTATUS_REGISTER trackId:@"INIT" param:nil];
-    result(true);
+    result([NSNumber numberWithBool:YES]);
 }
 
 - (void) setOptions:(FlutterMethodCall*)call result:(FlutterResult)result {
@@ -87,8 +89,8 @@ static char kPlayerItemTimeRangesContext;
 }
 
 - (void) setPlaylistItems:(FlutterMethodCall*)call result:(FlutterResult)result {
-    NSMutableArray* items = command.arguments[@"items"];
-    NSDictionary* options = command.arguments[@"options"];
+    NSMutableArray* items = call.arguments[@"items"];
+    NSDictionary* options = call.arguments[@"options"];
 
     if (options == nil) {
         options = @{};
@@ -119,11 +121,11 @@ static char kPlayerItemTimeRangesContext;
         [self playCommand:NO]; // but we will try to preempt it to avoid the button blinking paused.
     }
 
-    result(true);
+    result([NSNumber numberWithBool:YES]);
 }
 
 - (void) addItem:(FlutterMethodCall*)call result:(FlutterResult)result {
-    NSMutableDictionary* item = command.arguments;
+    NSMutableDictionary* item = call.arguments;
 
     NSLog(@"RmxAudioPlayer.execute=addItem, %@", item);
 
@@ -133,22 +135,22 @@ static char kPlayerItemTimeRangesContext;
         [self addTracks:tempArr];
     }
 
-    result(true);
+    result([NSNumber numberWithBool:YES]);
 }
 
 
 - (void) addAllItems:(FlutterMethodCall*)call result:(FlutterResult)result {
-    NSMutableArray* items = command.arguments;
+    NSMutableArray* items = call.arguments;
     NSLog(@"RmxAudioPlayer.execute=addAllItems, %@", items);
 
     [self insertOrReplaceTracks:items replace:NO startPosition:-1];
 
-    result(true);
+    result([NSNumber numberWithBool:YES]);
 }
 
 
 - (void) removeItems:(FlutterMethodCall*)call result:(FlutterResult)result {
-    NSMutableArray* items = command.arguments;
+    NSMutableArray* items = call.arguments;
     NSLog(@"RmxAudioPlayer.execute=removeItems, %@", items);
 
     int removed = 0;
@@ -163,19 +165,19 @@ static char kPlayerItemTimeRangesContext;
         }
     }
 
-    result(removed);
+    result([NSNumber numberWithInt: removed]);
 }
 
 
 - (void) removeItem:(FlutterMethodCall*)call result:(FlutterResult)result {
-    NSString* trackIndex = command.arguments[@"trackIndex"];
-    NSString* trackId = command.arguments[@"trackId"];
+    NSString* trackIndex = call.arguments[@"trackIndex"];
+    NSString* trackId = call.arguments[@"trackId"];
 
     NSLog(@"RmxAudioPlayer.execute=removeItem, %@, %@", trackId, trackIndex);
 
     BOOL success = [self removeItemWithValues:trackIndex trackId:trackId];
 
-    result(success);
+    result([NSNumber numberWithBool:success]);
 }
 
 
@@ -183,64 +185,67 @@ static char kPlayerItemTimeRangesContext;
     NSLog(@"RmxAudioPlayer.execute=clearAllItems");
     [self removeAllTracks:NO];
 
-    result(true);
+    result([NSNumber numberWithBool:YES]);
 }
 
 
 - (void) play:(FlutterMethodCall*)call result:(FlutterResult)result {
     NSLog(@"RmxAudioPlayer.execute=play");
     [self playCommand:NO];
-
-    if ([self getPlayerStatusItem:playerItem] != [NSNull null]) {
+    
+    AudioTrack* playerItem = (AudioTrack*)[self avQueuePlayer].currentItem;
+    if ([self getPlayerStatusItem:playerItem] != nil) {
         NSDictionary* trackStatus = [self getPlayerStatusItem:playerItem];
-        [self onStatus:RMX_STATUS_PLAYING trackId:playerItem.trackId param:param];
+        [self onStatus:RMXSTATUS_PLAYING trackId:playerItem.trackId param:trackStatus];
+        result(trackStatus);
     } else {
-
+        result(nil);
     }
 
-    result(true);
 }
 
 
 - (void) playTrackByIndex:(FlutterMethodCall*)call result:(FlutterResult)result {
-    NSNumber* argVal = [command argumentAtIndex:0 withDefault:[NSNumber numberWithInt:0]];
+    NSNumber* argVal = call.arguments;
+    
+    if (argVal == nil) {
+        argVal = [NSNumber numberWithInt:0];
+    }
 
     NSLog(@"RmxAudioPlayer.execute=playTrackByIndex, %@", argVal);
     int index = argVal.intValue;
 
     if (index < 0 || index >= [self avQueuePlayer].itemsForPlayer.count) {
-        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Provided index is out of bounds"];
-        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+        NSLog(@"Provided index is out of bounds");
+        result(nil);
     } else {
         [self avQueuePlayer].currentIndex = argVal.intValue;
         [self playCommand:NO];
-        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+        result([NSNumber numberWithBool:YES]);
     }
 }
 
 
 - (void) playTrackById:(FlutterMethodCall*)call result:(FlutterResult)result {
-    NSString* trackId = [command.arguments objectAtIndex:0];
+    NSString* trackId = call.arguments;
     NSLog(@"RmxAudioPlayer.execute=playTrackById, %@", trackId);
 
-    NSDictionary* result = [self findTrackById:trackId];
-    NSInteger idx = [(NSNumber*)result[@"index"] integerValue];
+    NSDictionary* rst = [self findTrackById:trackId];
+    NSInteger idx = [(NSNumber*)rst[@"index"] integerValue];
     // AudioTrack* track = result[@"track"];
 
     if ([self avQueuePlayer].itemsForPlayer.count > 0) {
         if (idx >= 0) {
             [self avQueuePlayer].currentIndex = idx;
             [self playCommand:NO];
-            CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsNSUInteger:idx];
-            [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+            result((NSNumber*)rst[@"index"]);
         } else {
-            CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Track ID not found"];
-            [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+            NSLog(@"Track ID not found");
+            result(nil);
         }
     } else {
-        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"The playlist is empty!"];
-        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+        NSLog(@"The playlist is empty!");
+        result(nil);
     }
 }
 
@@ -250,8 +255,7 @@ static char kPlayerItemTimeRangesContext;
     _isWaitingToStartPlayback = NO;
     [self pauseCommand:NO];
 
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    result([NSNumber numberWithBool:YES]);
 }
 
 
@@ -259,8 +263,7 @@ static char kPlayerItemTimeRangesContext;
     NSLog(@"RmxAudioPlayer.execute=skipForward");
     [self playNext:NO];
 
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    result([NSNumber numberWithBool:YES]);
 }
 
 
@@ -268,61 +271,83 @@ static char kPlayerItemTimeRangesContext;
     NSLog(@"RmxAudioPlayer.execute=skipBack");
     [self playPrevious:NO];
 
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    result([NSNumber numberWithBool:YES]);
 }
 
 
 - (void) seekTo:(FlutterMethodCall*)call result:(FlutterResult)result {
-    NSNumber* argVal = [command argumentAtIndex:0 withDefault:[NSNumber numberWithFloat:0.0]];
+    NSNumber* argVal = call.arguments;
+    
+    if (argVal == nil) {
+        argVal = [NSNumber numberWithInt:0];
+    }
+    
     NSLog(@"RmxAudioPlayer.execute=seekTo, %@", argVal);
 
     float positionTime = argVal.floatValue;
     [self seekTo:positionTime isCommand:YES];
 
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    AudioTrack* playerItem = (AudioTrack*)[self avQueuePlayer].currentItem;
+    if ([self getPlayerStatusItem:playerItem] != nil) {
+        NSDictionary* trackStatus = [self getPlayerStatusItem:playerItem];
+        [self onStatus:RMXSTATUS_SEEK trackId:playerItem.trackId param:trackStatus];
+        result(trackStatus);
+    } else {
+        result(nil);
+    }
 }
 
 
 - (void) seekToQueuePosition:(FlutterMethodCall*)call result:(FlutterResult)result {
-    NSNumber* argVal = [command argumentAtIndex:0 withDefault:[NSNumber numberWithFloat:0.0]];
+    NSNumber* argVal = call.arguments;
+    
+    if (argVal == nil) {
+        argVal = [NSNumber numberWithFloat:0.0];
+    }
+    
     NSLog(@"RmxAudioPlayer.execute=seekToQueuePosition, %@", argVal);
 
     float positionTime = argVal.floatValue;
 
     [[self avQueuePlayer] seekToTimeInQueue:CMTimeMakeWithSeconds(positionTime, NSEC_PER_SEC) completionHandler:^(BOOL complete) {
         // I guess we could check if the seek actually succeeded.
-        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+        result([NSNumber numberWithBool:YES]);
     }];
 }
 
 
 - (void) setPlaybackRate:(FlutterMethodCall*)call result:(FlutterResult)result {
-    NSNumber* argVal = [command argumentAtIndex:0 withDefault:[NSNumber numberWithFloat:1.0]];
+    NSNumber* argVal = call.arguments;
+    
+    if (argVal == nil) {
+        argVal = [NSNumber numberWithFloat:1.0];
+    }
+    
     NSLog(@"RmxAudioPlayer.execute=setPlaybackRate, %@", argVal);
 
     self.rate = argVal.floatValue;
 
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    result([NSNumber numberWithBool:YES]);
 }
 
 
 - (void) setPlaybackVolume:(FlutterMethodCall*)call result:(FlutterResult)result {
-    NSNumber* argVal = [command argumentAtIndex:0 withDefault:[NSNumber numberWithFloat:self.volume]];
+    NSNumber* argVal = call.arguments;
+    
+    if (argVal == nil) {
+        argVal = [NSNumber numberWithFloat:self.volume];
+    }
+    
     NSLog(@"RmxAudioPlayer.execute=setPlaybackVolume, %@", argVal);
 
     self.volume = argVal.floatValue;
 
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    result([NSNumber numberWithBool:YES]);
 }
 
 
 - (void) setLoopAll:(FlutterMethodCall*)call result:(FlutterResult)result {
-    id loop2 = [command argumentAtIndex:0];
+    id loop2 = call.arguments;
     if (([loop2 isKindOfClass:[NSString class]] && [loop2 isEqualToString:@"true"]) || [loop2 boolValue]) {
         self.loop = YES;
     } else {
@@ -330,8 +355,7 @@ static char kPlayerItemTimeRangesContext;
     }
     NSLog(@"RmxAudioPlayer.execute=setLoopAll, %@", loop2);
 
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    result([NSNumber numberWithBool:YES]);
 }
 
 
@@ -339,8 +363,7 @@ static char kPlayerItemTimeRangesContext;
     NSLog(@"RmxAudioPlayer.execute=getPlaybackRate, %f", self.rate);
     float rate = self.rate;
 
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:rate];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    result([NSNumber numberWithFloat:rate]);
 }
 
 
@@ -348,8 +371,7 @@ static char kPlayerItemTimeRangesContext;
     NSLog(@"RmxAudioPlayer.execute=getPlaybackVolume, %f", self.volume);
     float volume = self.volume;
 
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:volume];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    result([NSNumber numberWithFloat:volume]);
 }
 
 
@@ -357,8 +379,7 @@ static char kPlayerItemTimeRangesContext;
     float currentPosition = [self getTrackCurrentTime:nil];
     NSLog(@"RmxAudioPlayer.execute=getPlaybackPosition, %f", currentPosition);
 
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:currentPosition];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    result([NSNumber numberWithInt:currentPosition]);
 }
 
 
@@ -366,8 +387,7 @@ static char kPlayerItemTimeRangesContext;
     NSDictionary* trackStatus = [self getPlayerStatusItem:nil];
     NSLog(@"RmxAudioPlayer.execute=getCurrentBuffer, %@", trackStatus);
 
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:trackStatus];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    result(trackStatus);
 }
 
 
@@ -375,8 +395,7 @@ static char kPlayerItemTimeRangesContext;
     float duration = self.estimatedDuration;
     NSLog(@"RmxAudioPlayer.execute=getTotalDuration, %f", duration);
 
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:duration];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    result([NSNumber numberWithFloat:duration]);
 }
 
 
@@ -384,18 +403,16 @@ static char kPlayerItemTimeRangesContext;
     float position = self.queuePosition;
     NSLog(@"RmxAudioPlayer.execute=getQueuePosition, %f", position);
 
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDouble:position];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    result([NSNumber numberWithFloat:position]);
 }
 
 
-- (void) release:(CDVInvokedUrlCommand*)command {
+- (void) release:(FlutterMethodCall*)call result:(FlutterResult)result {
     NSLog(@"RmxAudioPlayer.execute=release");
     _isWaitingToStartPlayback = NO;
     [self releaseResources];
 
-    CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    result([NSNumber numberWithBool:YES]);
 }
 
 
@@ -423,7 +440,7 @@ static char kPlayerItemTimeRangesContext;
 }
 
 - (BOOL) removeItemWithValues:(NSString*)trackIndex trackId:(NSString*)trackId {
-    if ((id)trackIndex != [NSNull null]
+    if ((id)trackIndex != nil
         && [trackIndex integerValue] > 0
         && [trackIndex integerValue] < [self avQueuePlayer].itemsForPlayer.count
         ) {
@@ -431,7 +448,7 @@ static char kPlayerItemTimeRangesContext;
         [self removeTrackObservers:item];
         [[self avQueuePlayer] removeItem:item];
         return YES;
-    } else if ((id)trackId != [NSNull null] && ![trackId isEqualToString:@""]) {
+    } else if ((id)trackId != nil && ![trackId isEqualToString:@""]) {
         NSDictionary* result = [self findTrackById:trackId];
         NSInteger idx = [(NSNumber*)result[@"index"] integerValue];
         AudioTrack* track = result[@"track"];
@@ -1138,7 +1155,7 @@ static char kPlayerItemTimeRangesContext;
 - (void) initializeMPCommandCenter
 {
     if (!_commandCenterRegistered) {
-        [self.viewController becomeFirstResponder]; // supposedly this is no longer necessary.
+        //[self.viewController becomeFirstResponder]; // supposedly this is no longer necessary.
 
         MPRemoteCommandCenter *commandCenter = [MPRemoteCommandCenter sharedCommandCenter];
         [commandCenter.playCommand setEnabled:true];
@@ -1321,7 +1338,7 @@ static char kPlayerItemTimeRangesContext;
 
     // We do need these.
     [listener addObserver:self selector:@selector(handleAudioSessionInterruption:) name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
-    [listener addObserver:self selector:@selector(viewWillDisappear:) name:CDVViewWillDisappearNotification object:nil];
+    //[listener addObserver:self selector:@selector(viewWillDisappear:) name:V object:nil];
 
     // Listen to when the queue player tells us it emptied the items list
     [listener addObserver:self selector:@selector(queuePlayerCleared:) name:AVBidirectionalQueueCleared object:[self avQueuePlayer]];
@@ -1347,20 +1364,14 @@ static char kPlayerItemTimeRangesContext;
 
 - (void) onStatus:(RmxAudioStatusMessage)what trackId:(NSString*)trackId param:(NSObject*)param
 {
-    if (self.statusCallbackId != nil) {
+    if (self.eventListener != nil) {
         NSMutableDictionary* status = [NSMutableDictionary dictionary];
         status[@"msgType"] = @(what);
         // in the error case contains a dict with "code" and "message", otherwise a NSNumber
         status[@"value"] = param;
         status[@"trackId"] = trackId;
 
-        NSMutableDictionary* dict = [NSMutableDictionary dictionary];
-        dict[@"action"] = @"status";
-        dict[@"status"] = status;
-
-        CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dict];
-        [result setKeepCallbackAsBool:YES]; // hold on to this.
-        [self.commandDelegate sendPluginResult:result callbackId:self.statusCallbackId];
+        self.eventListener(@"status", status);
     }
 }
 
@@ -1394,11 +1405,12 @@ static char kPlayerItemTimeRangesContext;
     if (@available(iOS 9.0, *)) {
         [commandCenter.changePlaybackPositionCommand setEnabled:false];
         [commandCenter.changePlaybackPositionCommand removeTarget:self action:NULL];
+        
     }
 
     _commandCenterRegistered = NO;
 }
-
+/*
 - (void) onMemoryWarning
 {
     // override to remove caches, etc
@@ -1409,14 +1421,15 @@ static char kPlayerItemTimeRangesContext;
     NSLog(@"RmxAudioPlayer, queuePlayerCleared, MEMORY_WARNING");
     [self onStatus:RMXSTATUS_PLAYLIST_CLEARED trackId:@"INVALID" param:@{@"reason": @"memory-warning"}];
 }
-
+*/
+/*
 - (void) onReset
 {
     // Override to cancel any long-running requests when the WebView navigates or refreshes.
     [super onReset];
     [self releaseResources];
 }
-
+*/
 - (void) dealloc {
     // [super dealloc];
     [self releaseResources];
@@ -1427,11 +1440,12 @@ static char kPlayerItemTimeRangesContext;
     [_avQueuePlayer removeObserver:self forKeyPath:@"currentItem"];
     [_avQueuePlayer removeObserver:self forKeyPath:@"rate"];
     [self deregisterMusicControlsEventListener];
-
+/*
     // onReset or when killing app:
     if ([self.viewController isFirstResponder]) {
         [self.viewController resignFirstResponder];
     }
+ */
     [self removeAllTracks:NO];
     _avQueuePlayer = nil;
 

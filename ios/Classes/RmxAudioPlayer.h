@@ -9,7 +9,7 @@
 #define RmxAudioPlayer_h
 
 #import <UIKit/UIKit.h>
-#import <Cordova/CDVPlugin.h> // this already includes Foundation.h
+#import <Flutter/Flutter.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <MediaPlayer/MPNowPlayingInfoCenter.h>
 #import <MediaPlayer/MPMediaItem.h>
@@ -18,10 +18,12 @@
 #import "Constants.h"
 #import "AudioTrack.h"
 
-@interface RmxAudioPlayer
+typedef void (^RmxAudioPlayerEventListener)(NSString* result, id _Nullable args);
+
+@interface RmxAudioPlayer: NSObject
 
 // structural methods
-- (void) pluginInitialize;
+- (void) pluginInitialize:(RmxAudioPlayerEventListener)statusListener;
 - (void) setOptions:(FlutterMethodCall*)call result:(FlutterResult)result;
 - (void) initialize:(FlutterMethodCall*)call result:(FlutterResult)result;
 

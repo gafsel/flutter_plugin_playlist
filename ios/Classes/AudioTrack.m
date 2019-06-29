@@ -42,7 +42,11 @@
     track.title = trackInfo[@"title"];
 
     if (isStream && [track respondsToSelector:@selector(setCanUseNetworkResourcesForLiveStreamingWhilePaused:)]) {
-        track.canUseNetworkResourcesForLiveStreamingWhilePaused = YES;
+        if (@available(iOS 9.0, *)) {
+            track.canUseNetworkResourcesForLiveStreamingWhilePaused = YES;
+        } else {
+            // Fallback on earlier versions
+        }
     }
 
     return track;
