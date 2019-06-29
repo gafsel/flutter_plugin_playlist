@@ -7,9 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5003b8aa-1a06-47c3-9125-4d30128bbd07" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/rmx_audio_player.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/rmx_audio_player.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/flutter_plugin_playlist_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/flutter_plugin_playlist_test.dart" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,31 +20,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
+      <file leaf-file-name="pubspec.yaml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pubspec.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="29" column="67" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="67" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="68">
+              <caret line="4" column="10" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rmx_audio_player.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/rmx_audio_player.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="67">
-              <caret line="300" column="53" lean-forward="true" selection-start-line="300" selection-start-column="53" selection-end-line="300" selection-end-column="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="flutter_plugin_playlist.podspec" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ios/flutter_plugin_playlist.podspec">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-102" />
           </provider>
         </entry>
       </file>
@@ -101,14 +81,16 @@
         <option value="$PROJECT_DIR$/example/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" />
         <option value="$PROJECT_DIR$/android/src/main/java/org/gafs/flutter_plugin_playlist/FlutterPluginPlaylistPlugin.java" />
         <option value="$PROJECT_DIR$/example/android/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/lib/flutter_plugin_playlist.dart" />
-        <option value="$PROJECT_DIR$/test/flutter_plugin_playlist_test.dart" />
         <option value="$PROJECT_DIR$/example/lib/main.dart" />
         <option value="$PROJECT_DIR$/ios/Classes/RmxAudioPlayer.h" />
         <option value="$PROJECT_DIR$/ios/Classes/FlutterPluginPlaylistPlugin.m" />
         <option value="$PROJECT_DIR$/ios/Classes/RmxAudioPlayer.m" />
-        <option value="$PROJECT_DIR$/lib/interfaces.dart" />
         <option value="$PROJECT_DIR$/lib/rmx_audio_player.dart" />
+        <option value="$PROJECT_DIR$/ios/flutter_plugin_playlist.podspec" />
+        <option value="$PROJECT_DIR$/lib/flutter_plugin_playlist.dart" />
+        <option value="$PROJECT_DIR$/lib/interfaces.dart" />
+        <option value="$PROJECT_DIR$/test/flutter_plugin_playlist_test.dart" />
+        <option value="$PROJECT_DIR$/pubspec.yaml" />
       </list>
     </option>
   </component>
@@ -140,7 +122,7 @@
             <path>
               <item name="flutter_plugin_playlist" type="b2602c69:ProjectViewProjectNode" />
               <item name="flutter_plugin_playlist" type="462c0819:PsiDirectoryNode" />
-              <item name="ios" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="flutter_plugin_playlist" type="b2602c69:ProjectViewProjectNode" />
@@ -236,12 +218,12 @@
       <option name="presentableId" value="Default" />
       <updated>1561742584215</updated>
       <workItem from="1561742642047" duration="14447000" />
-      <workItem from="1561776120410" duration="18428000" />
+      <workItem from="1561776120410" duration="18742000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="32875000" />
+    <option name="totallyTimeSpent" value="33189000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1299" height="743" extended-state="6" />
@@ -258,11 +240,11 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.32843137" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="right" id="Flutter Outline" order="3" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.25409836" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.3885246" />
       <window_info id="Designer" order="2" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2386273" />
       <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.45901638" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.45901638" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.43464053" />
@@ -501,28 +483,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/index.dart" />
-    <entry file="file://$PROJECT_DIR$/lib/flutter_plugin_playlist.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/flutter_plugin_playlist_test.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../ferramentas/flutter/packages/flutter/lib/src/services/platform_channel.dart" />
     <entry file="file://$PROJECT_DIR$/../../ferramentas/flutter/packages/flutter/lib/src/material/slider.dart" />
     <entry file="file://$PROJECT_DIR$/lib/constants.dart">
@@ -576,13 +537,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/interfaces.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="234" column="29" selection-start-line="234" selection-start-column="23" selection-end-line="234" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/example/lib/main.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="174">
@@ -602,7 +556,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ios/flutter_plugin_playlist.podspec">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-102" />
+        <state relative-caret-position="170">
+          <caret line="10" column="38" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/flutter_plugin_playlist.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="27" lean-forward="true" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
+          <folding>
+            <element signature="e#34#54#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/interfaces.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="150" column="14" lean-forward="true" selection-start-line="150" selection-start-column="14" selection-end-line="150" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/flutter_plugin_playlist_test.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pubspec.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="10" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
+        </state>
       </provider>
     </entry>
   </component>
