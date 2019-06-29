@@ -142,22 +142,25 @@ class AudioTrack {
   AudioTrack({
     this.trackId,
     this.isStream = false,
-    @required this.album,
+    this.album,
     this.albumArt,
-    @required this.artist,
-    @required this.assetUrl,
-    @required this.title
-  });
+    this.artist,
+    this.assetUrl,
+    this.title
+  }) : assert(album != null),
+        assert(artist != null),
+        assert(assetUrl != null),
+        assert(title != null);
 
   factory AudioTrack.fromJson(dynamic json) {
     return AudioTrack(
-      title: json['title'],
-      album: json['album'],
-      artist: json['artist'],
-      assetUrl: json['assetUrl'],
-      trackId: json['trackId'],
-      albumArt: json['albumArt'],
-      isStream: json['isStream']
+        title: json['title'],
+        album: json['album'],
+        artist: json['artist'],
+        assetUrl: json['assetUrl'],
+        trackId: json['trackId'],
+        albumArt: json['albumArt'],
+        isStream: json['isStream']
     );
   }
 
