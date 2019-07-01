@@ -4,7 +4,6 @@ import org.gafs.flutter_plugin_playlist.data.AudioTrack;
 import org.gafs.flutter_plugin_playlist.manager.PlaylistManager;
 import org.gafs.flutter_plugin_playlist.notification.PlaylistNotificationProvider;
 
-import android.support.annotation.Nullable;
 import android.app.Service;
 import android.content.Context;
 import android.util.Log;
@@ -38,7 +37,7 @@ public class AudioPlaylistHandler<I extends PlaylistItem, M extends BasePlaylist
             MediaSessionProvider mediaSessionProvider,
             MediaControlsProvider mediaControlsProvider,
             AudioFocusProvider<I> audioFocusProvider,
-            @Nullable Listener<I> listener
+            Listener<I> listener
     ) {
         super(context, serviceClass, playlistManager, imageProvider, notificationProvider,
                 mediaSessionProvider, mediaControlsProvider, audioFocusProvider, listener);

@@ -1,8 +1,5 @@
 package org.gafs.flutter_plugin_playlist.data;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-
 import com.devbrackets.android.playlistcore.annotation.SupportedMediaType;
 import com.devbrackets.android.playlistcore.api.PlaylistItem;
 
@@ -21,7 +18,7 @@ public class AudioTrack implements PlaylistItem {
     // In the iOS implementation, this returns nil if the data is bad.
     // We don't really have the option in Java; instead we will check the items afterwards
     // and just not add them to the list if they have bad data.
-    public AudioTrack(@NonNull Map<?, ?> config) {
+    public AudioTrack(Map<?, ?> config) {
         this.config = config;
     }
 
@@ -60,7 +57,6 @@ public class AudioTrack implements PlaylistItem {
         return getOption("isStream", false);
     }
 
-    @Nullable
     public String getTrackId() {
         String trackId = getOption("trackId", "");
         if (trackId.equals("")) { return null; }

@@ -3,16 +3,12 @@ package org.gafs.flutter_plugin_playlist.service;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.devbrackets.android.playlistcore.components.image.ImageProvider;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 // Because we are codegen'ing this to depend on the actual cordova app,
 // we can use R directly. Otherwise, we'd have to use the cordova activity,
@@ -28,32 +24,23 @@ public class MediaImageProvider implements ImageProvider<AudioTrack> {
         void onImageUpdated();
     }
 
-    @NotNull
     private RequestManager glide;
-    @NonNull
     private OnImageUpdatedListener listener;
 
-    @NonNull
     private FakeR fakeR;
 
-    @NonNull
     private NotificationImageTarget notificationImageTarget = new NotificationImageTarget();
-    @NonNull
     private RemoteViewImageTarget remoteViewImageTarget = new RemoteViewImageTarget();
 
-    @NonNull
     private Bitmap defaultNotificationImage;
-    @NonNull
     private Bitmap defaultArtworkImage;
 
-    @Nullable
     private Bitmap notificationImage;
-    @Nullable
     private Bitmap artworkImage;
 
     private int notificationIconId = 0;
 
-    MediaImageProvider(@NonNull Context context, @NonNull OnImageUpdatedListener listener) {
+    MediaImageProvider(Context context, OnImageUpdatedListener listener) {
         glide = Glide.with(context.getApplicationContext());
         fakeR = new FakeR(context.getApplicationContext());
         this.listener = listener;
@@ -74,20 +61,18 @@ public class MediaImageProvider implements ImageProvider<AudioTrack> {
         return getMipmapIcon();
     }
 
-    @Nullable
     @Override
     public Bitmap getLargeNotificationImage() {
         return notificationImage != null ? notificationImage : defaultNotificationImage;
     }
 
-    @Nullable
     @Override
     public Bitmap getRemoteViewArtwork() {
         return artworkImage != null ? artworkImage : defaultArtworkImage;
     }
 
     @Override
-    public void updateImages(@NotNull AudioTrack playlistItem) {
+    public void updateImages(AudioTrack playlistItem) {
         glide.asBitmap().load(playlistItem.getThumbnailUrl()).into(notificationImageTarget);
         glide.asBitmap().load(playlistItem.getArtworkUrl()).into(remoteViewImageTarget);
     }
@@ -112,7 +97,7 @@ public class MediaImageProvider implements ImageProvider<AudioTrack> {
      */
     private class NotificationImageTarget extends SimpleTarget<Bitmap> {
         @Override
-        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+        public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
             notificationImage = resource;
             listener.onImageUpdated();
         }
@@ -126,7 +111,7 @@ public class MediaImageProvider implements ImageProvider<AudioTrack> {
      */
     private class RemoteViewImageTarget extends SimpleTarget<Bitmap> {
         @Override
-        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+        public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
             artworkImage = resource;
             listener.onImageUpdated();
         }

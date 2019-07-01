@@ -1,7 +1,5 @@
 package org.gafs.flutter_plugin_playlist.service;
 
-import android.support.annotation.NonNull;
-
 import com.devbrackets.android.playlistcore.api.MediaPlayerApi;
 import com.devbrackets.android.playlistcore.components.playlisthandler.PlaylistHandler;
 import com.devbrackets.android.playlistcore.service.BasePlaylistService;
@@ -40,13 +38,11 @@ public class MediaService extends BasePlaylistService<AudioTrack, PlaylistManage
         getPlaylistManager().getMediaPlayers().clear();
     }
 
-    @NonNull
     @Override
     protected PlaylistManager getPlaylistManager() {
         return PlaylistManager.getInstance();
     }
 
-    @NonNull
     @Override
     public PlaylistHandler<AudioTrack> newPlaylistHandler() {
         MediaImageProvider imageProvider = new MediaImageProvider(getApplicationContext(), new MediaImageProvider.OnImageUpdatedListener() {

@@ -4,11 +4,7 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.ArrayList;
 import android.app.Application;
-import android.support.annotation.NonNull;
 import android.util.Log;
-import android.support.annotation.FloatRange;
-import android.support.annotation.IntRange;
-import android.support.annotation.Nullable;
 
 import com.devbrackets.android.exomedia.ExoMedia;
 import com.devbrackets.android.exomedia.core.api.VideoViewApi;
@@ -73,9 +69,8 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
         // Registers the media sources to use the OkHttp client instead of the standard Apache one
         // Note: the OkHttpDataSourceFactory can be found in the ExoPlayer extension library `extension-okhttp`
         ExoMedia.setDataSourceFactoryProvider(new ExoMedia.DataSourceFactoryProvider() {
-            @NonNull
             @Override
-            public DataSource.Factory provide(@NonNull String userAgent, @Nullable TransferListener listener) {
+            public DataSource.Factory provide(String userAgent, TransferListener listener) {
                 // Updates the network data source to use the OKHttp implementation and allows it to follow redirects
                 OkHttpClient httpClient = new OkHttpClient().newBuilder().followRedirects(true).followSslRedirects(true).build();
                 DataSource.Factory upstreamFactory = new OkHttpDataSourceFactory(httpClient, userAgent, listener);
@@ -129,7 +124,7 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
       return currentErrorTrack;
     }
 
-    public void setCurrentErrorTrack(@Nullable PlaylistItem errorItem) {
+    public void setCurrentErrorTrack(PlaylistItem errorItem) {
         currentErrorTrack = (AudioTrack)errorItem;
     }
 
@@ -286,7 +281,7 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
         setCurrentPosition(AudioTracks.indexOf(currentItem));
     }
 
-    public AudioTrack removeItem(int index, @Nullable String itemId) {
+    public AudioTrack removeItem(int index, String itemId) {
       boolean wasPlaying = this.isPlaying();
       if (this.getPlaylistHandler() != null) {
           this.getPlaylistHandler().pause(true);
@@ -384,7 +379,7 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
         return volumeRight;
     }
 
-    public void setVolume(@FloatRange(from = 0.0, to = 1.0) float left, @FloatRange(from = 0.0, to = 1.0) float right) {
+    public void setVolume(float left, float right) {
         volumeLeft = left;
         volumeRight = right;
 
@@ -398,7 +393,7 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
         return playbackSpeed;
     }
 
-    public void setPlaybackSpeed(@FloatRange(from = 0.0, to = 1.0) float speed) {
+    public void setPlaybackSpeed(float speed) {
         playbackSpeed = speed;
         if (currentMediaPlayer != null && currentMediaPlayer.get() != null && currentMediaPlayer.get() instanceof AudioApi) {
             Log.i("PlaylistManager", "setPlaybackSpeed completing with speed = " + speed);
@@ -406,7 +401,7 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
         }
     }
 
-    public void beginPlayback(@IntRange(from = 0) long seekPosition, boolean startPaused) {
+    public void beginPlayback(long seekPosition, boolean startPaused) {
       super.play(seekPosition, startPaused);
       try {
           setVolume(volumeLeft, volumeRight);

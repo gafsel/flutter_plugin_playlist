@@ -6,9 +6,6 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.PowerManager;
-import android.support.annotation.FloatRange;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
 
 import com.devbrackets.android.exomedia.AudioPlayer;
 import com.devbrackets.android.playlistcore.manager.BasePlaylistManager;
@@ -17,16 +14,14 @@ import com.devbrackets.android.exomedia.listener.OnErrorListener;
 import java.lang.ref.WeakReference;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.ArrayList;
-import org.jetbrains.annotations.NotNull;
 
 public class AudioApi extends BaseMediaApi {
-    @NonNull
     private AudioPlayer audioPlayer;
 
     private ReentrantLock errorListenersLock = new ReentrantLock(true);
     private ArrayList<WeakReference<OnErrorListener>> errorListeners = new ArrayList<>();
 
-    public AudioApi(@NonNull Context context) {
+    public AudioApi(Context context) {
         this.audioPlayer = new AudioPlayer(context.getApplicationContext());
 
         audioPlayer.setOnErrorListener(this);
@@ -93,16 +88,16 @@ public class AudioApi extends BaseMediaApi {
     }
 
     @Override
-    public void setVolume(@FloatRange(from = 0.0, to = 1.0) float left, @FloatRange(from = 0.0, to = 1.0) float right) {
+    public void setVolume(float left, float right) {
         audioPlayer.setVolume(left, right);
     }
 
     @Override
-    public void seekTo(@IntRange(from = 0L) long milliseconds) {
+    public void seekTo(long milliseconds) {
         audioPlayer.seekTo((int)milliseconds);
     }
 
-    public void setPlaybackSpeed(@FloatRange(from = 0.0, to = 1.0) float speed) {
+    public void setPlaybackSpeed(float speed) {
         audioPlayer.setPlaybackSpeed(speed);
     }
 
@@ -112,12 +107,12 @@ public class AudioApi extends BaseMediaApi {
     }
 
     @Override
-    public boolean handlesItem(@NotNull AudioTrack item) {
+    public boolean handlesItem(AudioTrack item) {
         return item.getMediaType() == BasePlaylistManager.AUDIO;
     }
 
     @Override
-    public void playItem(@NotNull AudioTrack item) {
+    public void playItem(AudioTrack item) {
         try {
             prepared = false;
             bufferPercent = 0;

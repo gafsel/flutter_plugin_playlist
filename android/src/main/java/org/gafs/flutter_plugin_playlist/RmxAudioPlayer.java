@@ -1,7 +1,5 @@
 package org.gafs.flutter_plugin_playlist;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.devbrackets.android.exomedia.listener.OnErrorListener;
@@ -42,7 +40,7 @@ public class RmxAudioPlayer implements PlaybackStatusListener<AudioTrack>,
   private boolean trackLoaded = false;
   private boolean resetStreamOnPause = true;
 
-  public RmxAudioPlayer(@NonNull OnStatusReportListener statusListener) {
+  public RmxAudioPlayer(OnStatusReportListener statusListener) {
     this.statusListener = statusListener;
 
     getPlaylistManager().setId(PLAYLIST_ID);
@@ -179,7 +177,7 @@ public class RmxAudioPlayer implements PlaybackStatusListener<AudioTrack>,
   }
 
   @Override
-  public boolean onPlaylistItemChanged(@Nullable AudioTrack currentItem, boolean hasNext, boolean hasPrevious) {
+  public boolean onPlaylistItemChanged(AudioTrack currentItem, boolean hasNext, boolean hasPrevious) {
       Map<String, Object> info = new HashMap<>();
       String trackId = currentItem == null ? "NONE" : currentItem.getTrackId();
       try {
@@ -202,7 +200,7 @@ public class RmxAudioPlayer implements PlaybackStatusListener<AudioTrack>,
   }
 
   @Override
-  public boolean onPlaybackStateChanged(@NonNull PlaybackState playbackState) {
+  public boolean onPlaybackStateChanged(PlaybackState playbackState) {
       // in testing, I saw PREPARING, then PLAYING, and buffering happened
       // during PLAYING. Tapping play/pause toggles PLAYING and PAUSED
       // sending a seek command produces SEEKING here
@@ -263,7 +261,7 @@ public class RmxAudioPlayer implements PlaybackStatusListener<AudioTrack>,
   }
 
   @Override
-  public boolean onProgressUpdated(@NonNull MediaProgress progress) {
+  public boolean onProgressUpdated(MediaProgress progress) {
       // Order matters here. We must update the item's duration and buffer before pulling the track status,
       // because those values are adjusted to account for the buffering-reset in ExoPlayer.
       AudioTrack currentItem = getPlaylistManager().getCurrentItem();
@@ -308,7 +306,7 @@ public class RmxAudioPlayer implements PlaybackStatusListener<AudioTrack>,
       return true;
   }
 
-  public Map<?, ?> getPlayerStatus(@Nullable AudioTrack statusItem) {
+  public Map<?, ?> getPlayerStatus(AudioTrack statusItem) {
     // TODO: Make this its own object.
     AudioTrack currentItem = statusItem != null ? statusItem : getPlaylistManager().getCurrentItem();
     PlaybackState playbackState = getPlaylistManager().getCurrentPlaybackState();
