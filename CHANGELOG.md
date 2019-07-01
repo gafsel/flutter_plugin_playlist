@@ -1,3 +1,9 @@
+## 0.0.2 - 2019-07-01
+
+### Changed
+
+* Android X compatibility
+
 ## 0.0.1
 
-* TODO: Describe initial release.
+* Conversion from cordova plugin
