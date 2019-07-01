@@ -329,7 +329,7 @@ public class FlutterPluginPlaylistPlugin implements MethodCallHandler, RmxConsta
   public void onError(RmxAudioErrorType errorCode, String trackId, String message) {
     Map<String, Object> error = new HashMap<>();
     try {
-      error.put("code", errorCode);
+      error.put("code", errorCode.toString());
       error.put("message", message != null ? message : "");
     } catch (Exception e) {
       Log.e(TAG, "Exception while raising onStatus: ", e);
