@@ -1,5 +1,8 @@
 package org.gafs.flutter_plugin_playlist;
 
+import android.app.Activity;
+import android.app.Application;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.devbrackets.android.playlistcore.data.MediaProgress;

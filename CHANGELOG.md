@@ -1,3 +1,10 @@
+## 0.1.0 - 2019-07-01
+
+### Fixed
+
+* FIX warnings from pub.dev
+* Handling app disposing
+
 ## 0.0.3 - 2019-07-01
 
 ### Fixed

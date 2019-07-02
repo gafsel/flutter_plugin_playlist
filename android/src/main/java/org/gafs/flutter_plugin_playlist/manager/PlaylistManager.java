@@ -3,7 +3,10 @@ package org.gafs.flutter_plugin_playlist.manager;
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.ArrayList;
+
+import android.app.Activity;
 import android.app.Application;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.devbrackets.android.exomedia.ExoMedia;
@@ -64,6 +67,11 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
     }
 
     public static void init(final Application application) {
+        if (instance != null) {
+            instance.invokeStop();
+            instance.clearItems();
+        }
+
         instance = new PlaylistManager(application);
 
         // Registers the media sources to use the OkHttp client instead of the standard Apache one
@@ -79,6 +87,44 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
                 // This sets a cache of 100MB, we might make this configurable.
                 Cache cache = new SimpleCache(application.getCacheDir(), new LeastRecentlyUsedCacheEvictor(100 * 1024 * 1024));
                 return new CacheDataSourceFactory(cache, upstreamFactory, CacheDataSource.FLAG_IGNORE_CACHE_ON_ERROR);
+            }
+        });
+
+        application.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+                instance.invokeStop();
+                instance.clearItems();
             }
         });
     }
