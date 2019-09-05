@@ -11,12 +11,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   double _seeking;
   double _position = 0;
 
   int _current = 0;
   int _total = 0;
+
+  String _status = 'none';
 
   @override
   void initState() {
@@ -25,15 +26,16 @@ class _MyAppState extends State<MyApp> {
     rmxAudioPlayer.initialize();
 
     rmxAudioPlayer.on('status', (eventName, {dynamic args}) {
-      print(eventName + (args??"").toString());
+      print(eventName + (args ?? "").toString());
 
       if ((args as OnStatusCallbackData).value != null) {
         setState(() {
           if ((args as OnStatusCallbackData).value['currentPosition'] != null) {
-            _current = (args as OnStatusCallbackData).value['currentPosition'].toInt();
-            _total =
-                (((args as OnStatusCallbackData).value['duration']) ?? 0)
-                    .toInt();
+            _current =
+                (args as OnStatusCallbackData).value['currentPosition'].toInt();
+            _total = (((args as OnStatusCallbackData).value['duration']) ?? 0)
+                .toInt();
+            _status = (args as OnStatusCallbackData).value['status'];
 
             if (_current > 0 && _total > 0) {
               _position = _current / _total;
@@ -41,63 +43,58 @@ class _MyAppState extends State<MyApp> {
               _position = 0;
             }
 
-            if (_seeking != null && !rmxAudioPlayer.isSeeking && !rmxAudioPlayer.isLoading) {
+            if (_seeking != null &&
+                !rmxAudioPlayer.isSeeking &&
+                !rmxAudioPlayer.isLoading) {
               _seeking = null;
             }
           }
         });
       }
     });
-
   }
 
-  _prepare() {
-    rmxAudioPlayer.setPlaylistItems(
-        [
-          new AudioTrack(
-              album: "Friends",
-              artist: "Bon Jovi",
-              assetUrl: "https://www.soundboard.com/mediafiles/22/223554-d1826dea-bfc3-477b-a316-20ded5e63e08.mp3",
-              title: "I'll be there for you"
-          ),
-          new AudioTrack(
-              album: "Friends",
-              artist: "Ross",
-              assetUrl: "https://www.soundboard.com/mediafiles/22/223554-fea5dfff-6c80-4e13-b0cf-9926198f50f3.mp3",
-              title: "The Sound"
-          ),
-          new AudioTrack(
-              album: "Friends",
-              artist: "Friends",
-              assetUrl: "https://www.soundboard.com/mediafiles/22/223554-3943c7cb-46e0-48b1-a954-057b71140e49.mp3",
-              title: "F.R.I.E.N.D.S"
-          ),
-        ],
-        options: new PlaylistItemOptions(
-          startPaused: true,
-        )
+  _prepare() async {
+    await rmxAudioPlayer.addAllItems([
+      new AudioTrack(
+          album: "Friends",
+          artist: "Bon Jovi",
+          assetUrl:
+              "https://www.soundboard.com/mediafiles/22/223554-d1826dea-bfc3-477b-a316-20ded5e63e08.mp3",
+          title: "I'll be there for you"),
+      new AudioTrack(
+          album: "Friends",
+          artist: "Ross",
+          assetUrl:
+              "https://www.soundboard.com/mediafiles/22/223554-fea5dfff-6c80-4e13-b0cf-9926198f50f3.mp3",
+          title: "The Sound"),
+    ]);
+
+    await _play();
+  }
+
+  _addMore() async {
+    await rmxAudioPlayer.addItem(
+      new AudioTrack(
+          album: "Friends",
+          artist: "Friends",
+          assetUrl:
+              "https://www.soundboard.com/mediafiles/22/223554-3943c7cb-46e0-48b1-a954-057b71140e49.mp3",
+          title: "F.R.I.E.N.D.S"),
+      index: 1,
     );
   }
 
-  _play() {
-    setState(() {
+  _play() async {
+    setState(() {});
 
-    });
-
-    rmxAudioPlayer.play().then((_){
-      setState(() {
-
-      });
-    }).catchError(print);
+    await rmxAudioPlayer.play();
   }
 
   _pause() {
-    rmxAudioPlayer.pause()
-        .then((_){
+    rmxAudioPlayer.pause().then((_) {
       print(_);
-      setState(() {
-
-      });
+      setState(() {});
     }).catchError(print);
   }
 
@@ -116,7 +113,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget _body() {
-    if (rmxAudioPlayer.currentTrack == null || rmxAudioPlayer.isStopped) {
+    if (_status == 'none' || _status == 'stopped') {
       return _actionPrepare();
     }
 
@@ -144,7 +141,7 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
           Slider(
-            value: _seeking??_position,
+            value: _seeking ?? _position,
             onChangeEnd: (val) async {
               if (_total > 0) {
                 await rmxAudioPlayer.seekTo(val * _total);
@@ -162,22 +159,25 @@ class _MyAppState extends State<MyApp> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-
                 IconButton(
                   onPressed: rmxAudioPlayer.skipBack,
                   icon: const Icon(Icons.skip_previous),
                 ),
-
                 IconButton(
                   onPressed: _onPressed(),
                   icon: _icon(),
                 ),
-
                 IconButton(
                   onPressed: rmxAudioPlayer.skipForward,
                   icon: const Icon(Icons.skip_next),
                 ),
               ],
+            ),
+          ),
+          Center(
+            child: RawMaterialButton(
+              onPressed: _addMore,
+              child: Text("Add More"),
             ),
           )
         ],
@@ -194,9 +194,9 @@ class _MyAppState extends State<MyApp> {
       sec = sec % 60;
     }
 
-    return (min >= 10 ? min.toString() : '0' + min.toString()) + ":"
-        + (sec >= 10 ? sec.toString() : '0' + sec.toString());
-
+    return (min >= 10 ? min.toString() : '0' + min.toString()) +
+        ":" +
+        (sec >= 10 ? sec.toString() : '0' + sec.toString());
   }
 
   _onPressed() {

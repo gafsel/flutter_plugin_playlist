@@ -154,6 +154,8 @@ These are the available resources:
 
 Make sure to check the example and also the original cordova plugin for more details.
 
+For Android, you can replace the notification icon by adding it at res/mipmap/icon.png.
+
 ## 4. Todo
 
 A fast adaptation was the easier solution to my specific needs, so there is lots to improve in the dart code, like creating flutter widgets to encapsulate the service manipulation.

@@ -320,9 +320,24 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
         setItems(AudioTracks);
     }
 
+    public void insertItem(AudioTrack item, int index) {
+        if (item == null) { return; }
+        AudioTrack currentItem = getCurrentItem(); // may
+        AudioTracks.add(index, item);
+        setItems(AudioTracks);
+        setCurrentPosition(AudioTracks.indexOf(currentItem));
+    }
+
     public void addAllItems(List<AudioTrack> items) {
         AudioTrack currentItem = getCurrentItem(); // may be null
         AudioTracks.addAll(items);
+        setItems(AudioTracks); // not *strictly* needed since they share the reference, but for good measure..
+        setCurrentPosition(AudioTracks.indexOf(currentItem));
+    }
+
+    public void insertAllItems(List<AudioTrack> items, int index) {
+        AudioTrack currentItem = getCurrentItem(); // may be null
+        AudioTracks.addAll(index, items);
         setItems(AudioTracks); // not *strictly* needed since they share the reference, but for good measure..
         setCurrentPosition(AudioTracks.indexOf(currentItem));
     }

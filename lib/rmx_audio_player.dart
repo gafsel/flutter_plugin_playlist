@@ -164,17 +164,23 @@ class RmxAudioPlayer {
   }
 
   /// Add a single track to the end of the playlist
-  Future<dynamic> addItem(AudioTrack trackItem) async {
+  Future<dynamic> addItem(AudioTrack trackItem, {int index}) async {
     var validTrackItem = this._validateTrack(trackItem);
-    if (!validTrackItem) {
+    if (validTrackItem == null) {
       throw new Exception('Provided track is null or not an audio track');
     }
-    return await _exec('addItem', validTrackItem);
+    return await _exec('addItem', {
+      'index': index,
+      'item': validTrackItem,
+    });
   }
 
   /// Adds the list of tracks to the end of the playlist.
-  Future<dynamic> addAllItems(List<AudioTrack> items) {
-    return _exec('addAllItems', this._validateTracks(items));
+  Future<dynamic> addAllItems(List<AudioTrack> items, {int index}) {
+    return _exec('addAllItems', {
+      'items': this._validateTracks(items),
+      'index': index,
+    });
   }
 
   /// Removes a track from the playlist. If this is the currently playing item, the next item will automatically begin playback.

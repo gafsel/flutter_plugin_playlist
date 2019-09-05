@@ -103,18 +103,35 @@ public class FlutterPluginPlaylistPlugin implements MethodCallHandler, RmxConsta
 
       result.success(true);
     } else if (ADD_PLAYLIST_ITEM.equals(action)) {
-      Map<?, ?> item = (Map<?, ?>) call.arguments;
+      Map<String, Object> args = (Map<String, Object>) call.arguments;
+      Map<?, ?> item = (Map<?, ?>) args.get("item");
       AudioTrack playerItem = getTrackItem(item);
-      audioPlayerImpl.getPlaylistManager().addItem(playerItem); // makes its own check for null
+
+      Number index = (Number) args.get("index");
 
       if (playerItem.getTrackId() != null) {
+        if (index != null && index.intValue() >= 0) {
+          audioPlayerImpl.getPlaylistManager().insertItem(playerItem, index.intValue());
+        } else {
+          audioPlayerImpl.getPlaylistManager().addItem(playerItem); // makes its own check for null
+        }
+
         onStatus(RmxAudioStatusMessage.RMXSTATUS_ITEM_ADDED, playerItem.getTrackId(), playerItem.toDict());
       }
+
       result.success(true);
     } else if (ADD_PLAYLIST_ITEMS.equals(action)) {
-      List<Map<?, ?>> items = (List<Map<?, ?>>) call.arguments;
+      Map<String, Object> args = (Map<String, Object>) call.arguments;
+      List<Map<?, ?>> items = (List<Map<?, ?>>) args.get("items");
       ArrayList<AudioTrack> trackItems = getTrackItems(items);
-      audioPlayerImpl.getPlaylistManager().addAllItems(trackItems);
+
+      Number index = (Number) args.get("index");
+
+      if (index != null && index.intValue() >= 0) {
+        audioPlayerImpl.getPlaylistManager().insertAllItems(trackItems, index.intValue());
+      } else {
+        audioPlayerImpl.getPlaylistManager().addAllItems(trackItems);
+      }
 
       for (AudioTrack playerItem : trackItems) {
         if (playerItem.getTrackId() != null) {
@@ -193,22 +210,27 @@ public class FlutterPluginPlaylistPlugin implements MethodCallHandler, RmxConsta
           result.success(null);
         }
 
+      } else if (audioPlayerImpl.getPlaylistManager().getItemCount() > 0){
+        audioPlayerImpl.getPlaylistManager().setCurrentPosition(0);
+        audioPlayerImpl.getPlaylistManager().beginPlayback(0, false);
       } else {
-        result.error("PLAY", "PLAY", false);
+        result.error(PLAY, PLAY, null);
       }
     } else if (PLAY_BY_INDEX.equals(action)) {
-      int index = option((Number) call.arguments, audioPlayerImpl.getPlaylistManager().getCurrentPosition()).intValue();
-      long seekPosition = (long)(option((Number) call.arguments, 0).longValue() * 1000.0);
+      Map<String, Object> args = (Map<String, Object>) call.arguments;
+      int index = option((Number) args.get("index"), audioPlayerImpl.getPlaylistManager().getCurrentPosition()).intValue();
+      long seekPosition = (long)(option((Number) args.get("position"), 0).longValue() * 1000.0);
 
       audioPlayerImpl.getPlaylistManager().setCurrentPosition(index);
       audioPlayerImpl.getPlaylistManager().beginPlayback(seekPosition, false);
       result.success(true);
     } else if (PLAY_BY_ID.equals(action)) {
-      String trackId = (String) call.arguments;
+      Map<String, Object> args = (Map<String, Object>) call.arguments;
+      String trackId = (String) args.get("trackId");
       if (!"".equals((trackId))) {
         // alternatively we could search for the item and set the current index to that item.
         int code = trackId.hashCode();
-        long seekPosition = (long)(option((Number) call.arguments, 0).longValue() * 1000.0);
+        long seekPosition = (long)(option((Number) args.get("position"), 0).longValue() * 1000.0);
         audioPlayerImpl.getPlaylistManager().setCurrentItem(code);
         audioPlayerImpl.getPlaylistManager().beginPlayback(seekPosition, false);
       }

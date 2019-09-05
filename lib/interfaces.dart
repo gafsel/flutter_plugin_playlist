@@ -51,15 +51,15 @@ class AudioPlayerOptions {
 class PlaylistItemOptions {
   /// If true, the plugin will continue playback from the current playback position after
   /// setting the items to the playlist.
-  final retainPosition;
+  final bool retainPosition;
 
   /// If retainPosition is true, this value will tell the plugin the exact time to start from,
   /// rather than letting the plugin decide based on current playback.
-  final num playFromPosition;
+  final int playFromPosition;
 
   /// If retainPosition is true, this value will tell the plugin the uid of the "current" item to start from,
   /// rather than letting the plugin decide based on current playback.
-  final num playFromId;
+  final String playFromId;
 
   /// If playback should immediately begin when calling setPlaylistItems on the plugin.
   /// Default is false;

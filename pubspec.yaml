@@ -1,6 +1,6 @@
 name: flutter_plugin_playlist
 description: A Flutter plugin for Android and iOS with native support for audio playlists, background support, and lock screen controls
-version: 0.0.3
+version: 0.1.0
 author: Gabriel Silva <gabrielfsilva.ti@gmail.com>
 homepage: https://github.com/gafsel/flutter_plugin_playlist
 
