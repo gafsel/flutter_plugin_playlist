@@ -39,6 +39,7 @@
 -(void)setCurrentIndex:(NSUInteger)currentIndex completionHandler:(void (^)(BOOL)) completionHandler;
 -(void)setItemsForPlayer:(NSMutableArray *)itemsForPlayer;
 -(void)insertAllItems:(NSMutableArray *)itemsForPlayer;
+-(void)insertItemAt:(AVPlayerItem *)item index:(NSNumber*) index;
 
 /* The following methods of AVQueuePlayer are overridden by AVBidirectionalQueuePlayer:
  – initWithItems: to keep track of the array used to create the player

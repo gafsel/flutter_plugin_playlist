@@ -4,18 +4,18 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - Flutter (from `.symlinks/flutter/ios-release`)
+  - Flutter (from `.symlinks/flutter/ios`)
   - flutter_plugin_playlist (from `.symlinks/plugins/flutter_plugin_playlist/ios`)
 
 EXTERNAL SOURCES:
   Flutter:
-    :path: ".symlinks/flutter/ios-release"
+    :path: ".symlinks/flutter/ios"
   flutter_plugin_playlist:
     :path: ".symlinks/plugins/flutter_plugin_playlist/ios"
 
 SPEC CHECKSUMS:
   Flutter: 58dd7d1b27887414a370fcccb9e645c08ffd7a6a
-  flutter_plugin_playlist: dae0fa587bca15e41fe33e2534fff1126fe17b81
+  flutter_plugin_playlist: 245f862b09e56e2b374810baaa8be4c83cb094cb
 
 PODFILE CHECKSUM: aff02bfeed411c636180d6812254b2daeea14d09
 

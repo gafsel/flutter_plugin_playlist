@@ -70,7 +70,7 @@
     // It should be noted that if the player is on its first item, this function will do nothing. It will
     // not restart the item or anything like that; if you want that functionality you can implement it
     // yourself fairly easily using the isAtBeginning method to test if the player is at its start.
-    NSUInteger tempNowPlayingIndex = [_itemsForPlayer indexOfObject:self.currentItem];
+    NSUInteger tempNowPlayingIndex = [[self itemsForPlayer] indexOfObject:self.currentItem];
 
     if (tempNowPlayingIndex > 0 && tempNowPlayingIndex != NSNotFound){
         float currentrate = self.rate;
@@ -82,7 +82,7 @@
         [self seekToTime:kCMTimeZero toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
 
         // The next two lines are necessary since RemoveAllItems resets both the nowPlayingIndex and _itemsForPlayer
-        NSArray *tempPlaylist = [[NSArray alloc]initWithArray:_itemsForPlayer];
+        NSArray *tempPlaylist = [[NSArray alloc]initWithArray:[self itemsForPlayer]];
         [super removeAllItems];
 
         NSInteger offset = 1;
@@ -125,7 +125,7 @@
 
 -(BOOL)isAtEnd
 {
-    if ([self currentIndex] >= [_itemsForPlayer count] - 1 || [self currentItem] == nil) {
+    if ([self currentIndex] >= [[self itemsForPlayer] count] - 1 || [self currentItem] == nil) {
         return YES;
     }
     return NO;
@@ -139,7 +139,7 @@
 -(NSUInteger)currentIndex
 {
     // This method simply returns the now playing index
-    return [_itemsForPlayer indexOfObject:self.currentItem];
+    return [[self itemsForPlayer] indexOfObject:self.currentItem];
 }
 
 -(void)setCurrentIndex:(NSUInteger)currentIndex {
@@ -158,7 +158,7 @@
         // Note: it is necessary to have seekToTime called twice in this method, once before and once after re-making the area. If it is not present before, the player will resume from the same spot in the next item when the previous item finishes playing; if it is not present after, the previous item will be played from the same spot that the current item was on.
         [self seekToTime:kCMTimeZero toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
         // The next two lines are necessary since RemoveAllItems resets both the nowPlayingIndex and _itemsForPlayer
-        NSArray *tempPlaylist = [[NSArray alloc]initWithArray:_itemsForPlayer];
+        NSArray *tempPlaylist = [[NSArray alloc]initWithArray:[self itemsForPlayer]];
         [super removeAllItems];
         for (NSUInteger i = newCurrentIndex; i < [tempPlaylist count]; i++) {
             AVPlayerItem* item = [tempPlaylist objectAtIndex:i];
@@ -186,7 +186,7 @@
     // This does the same thing as the normal AVQueuePlayer removeAllItems, but clears our collection copy
     [super removeAllItems];
     _estimatedDuration = kCMTimeZero;
-    [_itemsForPlayer removeAllObjects];
+    [[self itemsForPlayer] removeAllObjects];
 
     [[NSNotificationCenter defaultCenter] postNotificationName:AVBidirectionalQueueCleared object:self userInfo:nil];
 }
@@ -204,12 +204,16 @@
         _estimatedDuration = CMTimeSubtract(_estimatedDuration, item.duration);
     }
 
-    [_itemsForPlayer removeObject:item];
+    [[self itemsForPlayer] removeObject:item];
     [[NSNotificationCenter defaultCenter] postNotificationName:AVBidirectionalQueueRemovedItem object:self  userInfo:@{@"item":item}];
 }
 
 -(void)insertItem:(AVPlayerItem *)item afterItem:(AVPlayerItem *)afterItem
 {
+    if ([[self itemsForPlayer] containsObject:item]) {
+        return;
+    }
+    
     // This method calls the superclass to add the new item to the AVQueuePlayer, then adds that item to the
     // proper location in the itemsForPlayer array and increments the nowPlayingIndex if necessary.
     [super insertItem:item afterItem:afterItem];
@@ -222,17 +226,30 @@
             _estimatedDuration = CMTimeAdd(_estimatedDuration, item.duration);
     }
 
-    if ([_itemsForPlayer containsObject:afterItem]){ // AfterItem is non-nil
-        if ([_itemsForPlayer indexOfObject:afterItem] < [_itemsForPlayer count] - 1){
-            [_itemsForPlayer insertObject:item atIndex:[_itemsForPlayer indexOfObject:afterItem] + 1];
+    if ([[self itemsForPlayer] containsObject:afterItem]){ // AfterItem is non-nil
+        if ([[self itemsForPlayer] indexOfObject:afterItem] < [[self itemsForPlayer] count] - 1){
+            [[self itemsForPlayer] insertObject:item atIndex:[[self itemsForPlayer] indexOfObject:afterItem] + 1];
         } else {
-            [_itemsForPlayer addObject:item];
+            [[self itemsForPlayer] addObject:item];
         }
     } else { // afterItem is nil
-        [_itemsForPlayer addObject:item];
+        [[self itemsForPlayer] addObject:item];
     }
 
     [[NSNotificationCenter defaultCenter] postNotificationName:AVBidirectionalQueueAddedItem object:self userInfo:@{@"item":item}];
+}
+
+-(void)insertItemAt:(AVPlayerItem *)item index:(NSNumber *)index {
+    if ([[self itemsForPlayer] containsObject:item]) {
+        return;
+    }
+    
+    if ([index intValue] > [self currentIndex]) {
+        [self insertItem:item afterItem:[self itemsForPlayer][[index intValue] - 1]];
+    } else {
+        [[self itemsForPlayer] insertObject:item atIndex:[index intValue]];
+    }
+    
 }
 
 -(void)insertAllItems:(NSMutableArray *)itemsForPlayer {
@@ -247,7 +264,7 @@
     if (!CMTIME_IS_VALID(self->_estimatedDuration)) {
         //NSTimeInterval dur  = 0.0;
         CMTime duration = kCMTimeZero;
-        for (AVPlayerItem * item in _itemsForPlayer) {
+        for (AVPlayerItem * item in [self itemsForPlayer]) {
             if (CMTIME_IS_VALID(item.duration))
                 duration = CMTimeAdd(duration, item.duration);
         }
@@ -264,11 +281,11 @@
     AVPlayerItem * item = nil;
     NSInteger idx;
     for (idx = 0; idx < (NSInteger) currentIndex;idx++) {
-        item = _itemsForPlayer[idx];
+        item = [self itemsForPlayer][idx];
         timeOffset = CMTimeAdd(timeOffset, item.duration);
     };
-    if (_itemsForPlayer.count > idx) {
-        item = _itemsForPlayer[idx];
+    if ([self itemsForPlayer].count > idx) {
+        item = [self itemsForPlayer][idx];
         timeOffset = CMTimeAdd(timeOffset, item.currentTime);
     }
     return timeOffset;
@@ -278,7 +295,7 @@
     CMTime marker = kCMTimeZero;
     AVPlayerItem * item ;
     NSUInteger idx=0;
-    for (item in _itemsForPlayer) {
+    for (item in [self itemsForPlayer]) {
         if (CMTIME_COMPARE_INLINE(CMTimeAdd(marker, item.duration), >=, time))
             break;
         marker = CMTimeAdd(marker, item.duration);

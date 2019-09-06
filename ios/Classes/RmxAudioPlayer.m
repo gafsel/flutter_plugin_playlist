@@ -100,7 +100,7 @@ static char kPlayerItemTimeRangesContext;
 
     float seekToPosition = 0.0f;
     BOOL retainPosition = options[@"retainPosition"] != nil ? [options[@"retainPosition"] boolValue] : NO;
-    float playFromPosition = options[@"retainPosition"] != nil ? [options[@"playFromPosition"] floatValue] : 0.0f;
+    float playFromPosition = options[@"playFromPosition"] != nil ? [options[@"playFromPosition"] floatValue] : 0.0f;
     BOOL startPaused = options[@"startPaused"] != nil ? [options[@"startPaused"] boolValue] : YES;
 
     if (retainPosition) {
@@ -125,14 +125,20 @@ static char kPlayerItemTimeRangesContext;
 }
 
 - (void) addItem:(FlutterMethodCall*)call result:(FlutterResult)result {
-    NSMutableDictionary* item = call.arguments;
+    NSMutableDictionary* item = call.arguments[@"item"];
+    NSNumber* index = call.arguments[@"index"];
 
     NSLog(@"RmxAudioPlayer.execute=addItem, %@", item);
 
     AudioTrack* newTrack = [AudioTrack initWithDictionary:item];
     if (newTrack) {
         NSMutableArray* tempArr = [NSMutableArray arrayWithObject:newTrack];
-        [self addTracks:tempArr];
+        
+        if (index == [NSNull null]) {
+            [self addTracks:tempArr];
+        } else {
+            [self insertTracks:tempArr index:index];
+        }
     }
 
     result([NSNumber numberWithBool:YES]);
@@ -140,10 +146,15 @@ static char kPlayerItemTimeRangesContext;
 
 
 - (void) addAllItems:(FlutterMethodCall*)call result:(FlutterResult)result {
-    NSMutableArray* items = call.arguments;
+    NSMutableArray* items = call.arguments[@"items"];
+    NSNumber* index = call.arguments[@"index"];
     NSLog(@"RmxAudioPlayer.execute=addAllItems, %@", items);
 
-    [self insertOrReplaceTracks:items replace:NO startPosition:-1];
+    if (index == [NSNull null]) {
+        [self insertOrReplaceTracks:items replace:NO startPosition:-1];
+    } else {
+        [self insertOrReplaceTracks:items replace:NO startPosition:[index intValue]];
+    }
 
     result([NSNumber numberWithBool:YES]);
 }
@@ -170,12 +181,12 @@ static char kPlayerItemTimeRangesContext;
 
 
 - (void) removeItem:(FlutterMethodCall*)call result:(FlutterResult)result {
-    NSString* trackIndex = call.arguments[@"trackIndex"];
+    NSNumber* trackIndex = call.arguments[@"trackIndex"];
     NSString* trackId = call.arguments[@"trackId"];
 
     NSLog(@"RmxAudioPlayer.execute=removeItem, %@, %@", trackId, trackIndex);
 
-    BOOL success = [self removeItemWithValues:trackIndex trackId:trackId];
+    BOOL success = [self removeItemWithValues:[trackIndex stringValue] trackId:trackId];
 
     result([NSNumber numberWithBool:success]);
 }
@@ -206,7 +217,7 @@ static char kPlayerItemTimeRangesContext;
 
 
 - (void) playTrackByIndex:(FlutterMethodCall*)call result:(FlutterResult)result {
-    NSNumber* argVal = call.arguments;
+    NSNumber* argVal = call.arguments[@"index"];
     
     if (argVal == nil) {
         argVal = [NSNumber numberWithInt:0];
@@ -227,7 +238,7 @@ static char kPlayerItemTimeRangesContext;
 
 
 - (void) playTrackById:(FlutterMethodCall*)call result:(FlutterResult)result {
-    NSString* trackId = call.arguments;
+    NSString* trackId = call.arguments[@"trackId"];
     NSLog(@"RmxAudioPlayer.execute=playTrackById, %@", trackId);
 
     NSDictionary* rst = [self findTrackById:trackId];
@@ -434,8 +445,10 @@ static char kPlayerItemTimeRangesContext;
 
     if (replace) {
         [self setTracks:newList startPosition:startPosition];
-    } else {
+    } else if (startPosition < 0) {
         [self addTracks:newList];
+    } else {
+        [self insertTracks:newList index:[NSNumber numberWithFloat:startPosition]];
     }
 }
 
@@ -487,7 +500,7 @@ static char kPlayerItemTimeRangesContext;
 {
     _wasPlayingInterrupted = NO;
     [self initializeMPCommandCenter];
-    // [[self avQueuePlayer] play];
+    [[self avQueuePlayer] play];
 
     if (_resetStreamOnPause) {
         AudioTrack* currentTrack = (AudioTrack*)[self avQueuePlayer].currentItem;
@@ -618,6 +631,18 @@ static char kPlayerItemTimeRangesContext;
     }
 
     [[self avQueuePlayer] insertAllItems:tracks];
+}
+
+- (void) insertTracks:(NSMutableArray<AudioTrack*>*)tracks index:(NSNumber*) index
+{
+    int actualIndex = [index intValue];
+    for (AudioTrack* playerItem in tracks) {
+        [self addTrackObservers:playerItem];
+        
+        [[self avQueuePlayer]  insertItemAt:playerItem index:[NSNumber numberWithInt:actualIndex]];
+        
+        actualIndex++;
+    }
 }
 
 - (void) setTracks:(NSMutableArray<AudioTrack*>*)tracks startPosition:(float)startPosition

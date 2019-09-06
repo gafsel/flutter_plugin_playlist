@@ -57,6 +57,7 @@ class _MyAppState extends State<MyApp> {
   _prepare() async {
     await rmxAudioPlayer.addAllItems([
       new AudioTrack(
+          trackId: 'friend_bon_jovi',
           album: "Friends",
           artist: "Bon Jovi",
           assetUrl:
@@ -71,6 +72,10 @@ class _MyAppState extends State<MyApp> {
     ]);
 
     await _play();
+  }
+
+  _playFromId() async {
+    await rmxAudioPlayer.playTrackById("friend_bon_jovi");
   }
 
   _addMore() async {
@@ -175,9 +180,18 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           Center(
-            child: RawMaterialButton(
-              onPressed: _addMore,
-              child: Text("Add More"),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                RawMaterialButton(
+                  onPressed: _playFromId,
+                  child: Text("Play Opening"),
+                ),
+                RawMaterialButton(
+                  onPressed: _addMore,
+                  child: Text("Add More"),
+                ),
+              ],
             ),
           )
         ],
