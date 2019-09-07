@@ -2,18 +2,9 @@
 
 A Flutter plugin for Android and iOS with native support for audio playlists, background support, and lock screen controls.
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
-
 # IMPORTANT
 
-First of all, I'd like to give a special thank you to [codinronan](https://github.com/codinronan) for his exeptional work on the original plugin. It made my work in my apps a lot easier.
+First of all, I'd like to thank [codinronan](https://github.com/codinronan) for the exeptional work on the original plugin. It made my work with my apps a lot easier.
 
 This plugin is an adaptation of [cordova-plugin-playlist](https://github.com/Rolamix/cordova-plugin-playlist)
 to a Flutter plugin. The native source code and the documentation was based on it.
@@ -127,11 +118,11 @@ These are the available resources:
 * **hasError**: True if the *current track* has reported an error
 * **ready()**: Returns a Future for when the player is initialized
 * **setOptions(AudioPlayerOptions options)**: Sets the player options. This can be called at any time and is not required before playback can be initiated.
-* **setPlaylistItems(List<AudioTrack> items, {PlaylistItemOptions options})**: Sets the entire list of tracks to be played by the playlist.
-* **addItem(AudioTrack trackItem)**: Add a single track to the end of the playlist
-* **addAllItems(List<AudioTrack> items)**: Adds the list of tracks to the end of the playlist.
+* **setPlaylistItems(List\<AudioTrack> items, {PlaylistItemOptions options})**: Sets the entire list of tracks to be played by the playlist.
+* **addItem(AudioTrack trackItem, {num index})**: Add a single track to the end of the playlist
+* **addAllItems(List\<AudioTrack> items, {num index})**: Adds the list of tracks to the end of the playlist.
 * **removeItem(AudioTrackRemoval removeItem)**: Removes a track from the playlist. If this is the currently playing item, the next item will automatically begin playback.
-* **removeItems(List<AudioTrackRemoval> items)**: Removes all given tracks from the playlist; these can be specified either by trackId or trackIndex.
+* **removeItems(List\<AudioTrackRemoval> items)**: Removes all given tracks from the playlist; these can be specified either by trackId or trackIndex.
 * **clearAllItems()**: Clear the entire playlist. This will result in the STOPPED event being raised.
 * **play()**: Begin playback. If no tracks have been added, this has no effect.
 * **playTrackByIndex(num index, {num position})**: Play the track at the given index. If the track does not exist, this has no effect.
