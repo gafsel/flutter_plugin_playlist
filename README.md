@@ -4,7 +4,7 @@ A Flutter plugin for Android and iOS with native support for audio playlists, ba
 
 # IMPORTANT
 
-First of all, I'd like to thank [codinronan](https://github.com/codinronan) for the exeptional work on the original plugin. It made my work with my apps a lot easier.
+First of all, I'd like to thank [codinronan](https://github.com/codinronan) for the exceptional work on the original plugin. It made my work with my apps a lot easier.
 
 This plugin is an adaptation of [cordova-plugin-playlist](https://github.com/Rolamix/cordova-plugin-playlist)
 to a Flutter plugin. The native source code and the documentation was based on it.
