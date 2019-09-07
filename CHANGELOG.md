@@ -1,3 +1,10 @@
+## 0.1.2 - 2019-09-07
+
+### Fixed
+
+* FIXed `removeItem()` ([ISSUE #6](https://github.com/gafsel/flutter_plugin_playlist/issues/6))
+
+
 ## 0.1.1 - 2019-09-06
 
 ### Added
