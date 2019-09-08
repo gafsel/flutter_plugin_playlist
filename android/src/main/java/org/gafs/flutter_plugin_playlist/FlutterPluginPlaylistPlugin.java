@@ -141,7 +141,7 @@ public class FlutterPluginPlaylistPlugin implements MethodCallHandler, RmxConsta
 
       result.success(true);
     } else if (REMOVE_PLAYLIST_ITEM.equals(action)) {
-      List<Map<?, ?>> removal = (List<Map<?, ?>>) call.arguments;
+      Map<?, ?> removal = (Map<?, ?>) call.arguments;
 
       int trackIndex = option((Number) removal.get("trackIndex"), -1).intValue();
       String trackId = option((String) removal.get("trackId"), "");
