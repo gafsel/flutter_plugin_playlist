@@ -10,6 +10,8 @@
 
 #import <AVFoundation/AVFoundation.h>
 
+typedef NSURL* (^AssetResolver)(NSString* assetUrl);
+
 // AVPlayerItem already includes duration, error, status
 @interface AudioTrack : AVPlayerItem
 
@@ -21,7 +23,11 @@
 @property (nonatomic, strong) NSString* album;
 @property (nonatomic, strong) NSString* title;
 
+
 +(AudioTrack*)initWithDictionary:(NSDictionary*)trackInfo;
+
++ (void) setAssetResolver:(AssetResolver) assetResolver;
+
 -(NSDictionary*)toDict;
 
 @end

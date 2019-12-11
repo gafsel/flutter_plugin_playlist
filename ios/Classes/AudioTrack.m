@@ -13,7 +13,14 @@
 // other properties
 @end
 
+AssetResolver assetResolver;
+
 @implementation AudioTrack
+
++ (void)setAssetResolver:(AssetResolver)ar
+{
+    assetResolver = ar;
+}
 
 +(AudioTrack*)initWithDictionary:(NSDictionary*)trackInfo
 {
@@ -55,6 +62,10 @@
 // We create a wrapper function for this so that we can properly handle web, file, cdv, and document urls.
 +(NSURL*)getUrlForAsset:(NSString*)assetUrl
 {
+    if([assetUrl hasPrefix:@"asset://"]) {
+        return assetResolver([assetUrl substringFromIndex:8]);
+    }
+    
     return [NSURL URLWithString:assetUrl];
 }
 
