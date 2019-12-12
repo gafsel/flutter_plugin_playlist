@@ -7,22 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5003b8aa-1a06-47c3-9125-4d30128bbd07" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/example/assets/223554-3943c7cb-46e0-48b1-a954-057b71140e49.mp3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/flutter_plugin_playlist/example/assets/223554-3943c7cb-46e0-48b1-a954-057b71140e49.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/org/gafs/flutter_plugin_playlist/FlutterPluginPlaylistPlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/org/gafs/flutter_plugin_playlist/FlutterPluginPlaylistPlugin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/org/gafs/flutter_plugin_playlist/data/AudioTrack.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/org/gafs/flutter_plugin_playlist/data/AudioTrack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/src/main/java/org/gafs/flutter_plugin_playlist/manager/PlaylistManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/org/gafs/flutter_plugin_playlist/manager/PlaylistManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/flutter_plugin_playlist/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/flutter_plugin_playlist/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/flutter_plugin_playlist/example/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/flutter_plugin_playlist/example/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/flutter_plugin_playlist/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/flutter_plugin_playlist/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/.symlinks/plugins/flutter_plugin_playlist/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/.symlinks/plugins/flutter_plugin_playlist/example/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/example/ios/Flutter/flutter_export_environment.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/AVBidirectionalQueuePlayer.h" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/AVBidirectionalQueuePlayer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/AVBidirectionalQueuePlayer.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/AVBidirectionalQueuePlayer.m" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios/Classes/RmxAudioPlayer.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/RmxAudioPlayer.m" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -68,11 +55,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/pubspec.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
+            <state relative-caret-position="271">
               <caret line="38" column="60" selection-start-line="38" selection-start-column="60" selection-end-line="38" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -149,11 +145,11 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/ios/Classes/RmxAudioPlayer.m" />
         <option value="$PROJECT_DIR$/lib/rmx_audio_player.dart" />
-        <option value="$PROJECT_DIR$/CHANGELOG.md" />
         <option value="$PROJECT_DIR$/pubspec.yaml" />
         <option value="$PROJECT_DIR$/example/pubspec.yaml" />
         <option value="$PROJECT_DIR$/example/lib/main.dart" />
         <option value="$PROJECT_DIR$/android/src/main/java/org/gafs/flutter_plugin_playlist/FlutterPluginPlaylistPlugin.java" />
+        <option value="$PROJECT_DIR$/CHANGELOG.md" />
       </list>
     </option>
   </component>
@@ -181,11 +177,6 @@
             <path>
               <item name="flutter_plugin_playlist" type="b2602c69:ProjectViewProjectNode" />
               <item name="flutter_plugin_playlist" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="flutter_plugin_playlist" type="b2602c69:ProjectViewProjectNode" />
-              <item name="flutter_plugin_playlist" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -289,8 +280,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1201" height="947" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2571182" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2571182" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -300,13 +292,13 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32843137" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.425731" />
-      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.34152046" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.49590644" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Messages" order="7" weight="0.32865497" />
       <window_info anchor="bottom" id="Dart Analysis" order="8" weight="0.32748538" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.22875817" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.3871345" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="11" weight="0.3295082" />
       <window_info anchor="bottom" id="Version Control" order="12" />
@@ -607,7 +599,6 @@
     <entry file="file://$PROJECT_DIR$/LICENSE">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/CHANGELOG.md" />
     <entry file="file://$PROJECT_DIR$/flutter_plugin_playlist.iml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -651,8 +642,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/example/pubspec.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
+        <state relative-caret-position="271">
           <caret line="38" column="60" selection-start-line="38" selection-start-column="60" selection-end-line="38" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
         </state>
       </provider>
     </entry>

@@ -83,7 +83,7 @@ rmxAudioPlayer.setPlaylistItems(
           new AudioTrack(
               album: "Friends",
               artist: "Ross",
-              assetUrl: "https://www.soundboard.com/mediafiles/22/223554-fea5dfff-6c80-4e13-b0cf-9926198f50f3.mp3",
+              assetUrl: "assets://assets/223554-fea5dfff-6c80-4e13-b0cf-9926198f50f3.mp3",
               title: "The Sound"
           ),
           new AudioTrack(
@@ -128,8 +128,8 @@ These are the available resources:
 * **playTrackByIndex(num index, {num position})**: Play the track at the given index. If the track does not exist, this has no effect.
 * **playTrackById(String trackId, {num position})**: Play the track matching the given trackId. If the track does not exist, this has no effect.
 * **pause()**: Pause playback
-* **skipForward()**: Skip to the next track. If you are already at the end, and loop is false, this has no effect.
-* **skipBack()**: Skip to the previous track. If you are already at the beginning, this has no effect.
+* **skipForward()**: Skip to the next track. If you are already at the end, and loop is true, the first track is played.
+* **skipBack()**: Skip to the previous track. If loop is enabled and you are already at the beginning, the last track is played. Also, when the current track position is greater than 3 seconds, it will be restarted.
 * **seekTo(num position)**: Seek to the given position in the currently playing track.
 * **seekToQueuePosition(num position)**: (iOS only): Seek to the given position in the *entire queue of songs*.
 * **setPlaybackRate(num rate)**: Set the playback speed
