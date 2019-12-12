@@ -71,6 +71,8 @@ class _MyAppState extends State<MyApp> {
           title: "The Sound"),
     ]);
 
+    await rmxAudioPlayer.setLoop(true);
+
     await _play();
   }
 
@@ -84,7 +86,7 @@ class _MyAppState extends State<MyApp> {
           album: "Friends",
           artist: "Friends",
           assetUrl:
-              "https://www.soundboard.com/mediafiles/22/223554-3943c7cb-46e0-48b1-a954-057b71140e49.mp3",
+              "asset://assets/223554-3943c7cb-46e0-48b1-a954-057b71140e49.mp3",
           title: "F.R.I.E.N.D.S"),
       index: 1,
     );

@@ -229,24 +229,38 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
 
     @Override
     public AudioTrack previous() {
-        setCurrentPosition(Math.max(0, getCurrentPosition() -1));
-        AudioTrack prevItem = getCurrentItem();
+        if (getCurrentProgress().getPosition() > 3000) {
+            getPlaylistHandler().seek(0L);
+            return getCurrentItem();
+        } else {
 
-        if (!previousInvoked) { // this command came from the notification, not the user
-            Log.i(TAG, "PlaylistManager.previous: invoked via service.");
-            if (mediaControlsListener.get() != null) {
-              mediaControlsListener.get().onPrevious(prevItem, getCurrentPosition());
+            if (loop) {
+                setCurrentPosition((getCurrentPosition() + getItemCount() - 1) % getItemCount());
+            } else {
+                setCurrentPosition(Math.max(0, getCurrentPosition() - 1));
             }
-        }
+            AudioTrack prevItem = getCurrentItem();
 
-        previousInvoked = false;
-        return prevItem;
+            if (!previousInvoked) { // this command came from the notification, not the user
+                Log.i(TAG, "PlaylistManager.previous: invoked via service.");
+                if (mediaControlsListener.get() != null) {
+                    mediaControlsListener.get().onPrevious(prevItem, getCurrentPosition());
+                }
+            }
+
+            previousInvoked = false;
+            return prevItem;
+        }
     }
 
     @Override
     public AudioTrack next() {
         if (isNextAvailable()) {
-            setCurrentPosition(Math.min(getCurrentPosition() + 1, getItemCount()));
+            if(loop) {
+                setCurrentPosition((getCurrentPosition() + getItemCount() + 1) % getItemCount());
+            } else {
+                setCurrentPosition(Math.min(getCurrentPosition() + 1, getItemCount()));
+            }
         } else {
             if (loop) {
               setCurrentPosition(BasePlaylistManager.INVALID_POSITION);

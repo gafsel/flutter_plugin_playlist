@@ -2,6 +2,9 @@ package org.gafs.flutter_plugin_playlist;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -10,6 +13,8 @@ import com.devbrackets.android.playlistcore.data.MediaProgress;
 import org.gafs.flutter_plugin_playlist.data.AudioTrack;
 import org.gafs.flutter_plugin_playlist.manager.PlaylistManager;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +25,7 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
+import io.flutter.util.PathUtils;
 
 /**
  *
@@ -43,7 +49,7 @@ public class FlutterPluginPlaylistPlugin implements MethodCallHandler, RmxConsta
   }
 
   /** Plugin registration. */
-  public static void registerWith(Registrar registrar) {
+  public static void registerWith(final Registrar registrar) {
     PlaylistManager.init(registrar.activity().getApplication());
 
     MethodChannel channel = new MethodChannel(registrar.messenger(), "flutter_plugin_playlist");
@@ -59,6 +65,13 @@ public class FlutterPluginPlaylistPlugin implements MethodCallHandler, RmxConsta
 
     PlaylistManager.getInstance().registerProgressListener(plugin.audioPlayerImpl);
     PlaylistManager.getInstance().registerPlaylistListener(plugin.audioPlayerImpl);
+
+    AudioTrack.setAssetResolver(new AudioTrack.AssetResolver() {
+      @Override
+      public String getAsset(String asset) {
+        return Uri.parse("/android_asset/" + registrar.lookupKeyForAsset(asset)).toString();
+      }
+    });
   }
 
   @Override

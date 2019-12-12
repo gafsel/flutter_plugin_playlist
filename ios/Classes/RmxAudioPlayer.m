@@ -554,7 +554,7 @@ static char kPlayerItemTimeRangesContext;
         [self seekTo:0 isCommand:NO];
     } else {
         if ([[self avQueuePlayer] isAtBeginning] && self.loop) {
-            [[self avQueuePlayer] setCurrentIndex:[[[self avQueuePlayer] itemsForPlayer] count] - 1];
+            [self avQueuePlayer].currentIndex = [self avQueuePlayer].itemsForPlayer.count - 1;
             [self playCommand:NO];
         } else {
             [[self avQueuePlayer] playPreviousItem];
@@ -579,18 +579,23 @@ static char kPlayerItemTimeRangesContext;
     _wasPlayingInterrupted = NO;
     [self initializeMPCommandCenter];
 
-    [[self avQueuePlayer] advanceToNextItem];
+    if ([[self avQueuePlayer] isAtEnd] && self.loop) {
+        [self avQueuePlayer].currentIndex = 0;
+        [self playCommand:NO];
+    } else {
+        [[self avQueuePlayer] advanceToNextItem];
 
-    if (isCommand) {
-        NSString * action = @"music-controls-next";
-        NSLog(@"%@", action);
+        if (isCommand) {
+            NSString * action = @"music-controls-next";
+            NSLog(@"%@", action);
 
-        AudioTrack* playerItem = (AudioTrack *)[self avQueuePlayer].currentItem;
-        NSDictionary* param = @{
-                                @"currentIndex": @([self avQueuePlayer].currentIndex),
-                                @"currentItem": [playerItem toDict]
-                                };
-        [self onStatus:RMX_STATUS_SKIP_FORWARD trackId:playerItem.trackId param:param];
+            AudioTrack* playerItem = (AudioTrack *)[self avQueuePlayer].currentItem;
+            NSDictionary* param = @{
+                                    @"currentIndex": @([self avQueuePlayer].currentIndex),
+                                    @"currentItem": [playerItem toDict]
+                                    };
+            [self onStatus:RMX_STATUS_SKIP_FORWARD trackId:playerItem.trackId param:param];
+        }
     }
 }
 
@@ -961,7 +966,9 @@ static char kPlayerItemTimeRangesContext;
             [self onStatus:RMXSTATUS_PLAYLIST_COMPLETED trackId:@"INVALID" param:nil];
         }
 
-        if (self.loop && [self avQueuePlayer].itemsForPlayer.count > 0) {
+        if ([self avQueuePlayer].isFinished &&
+            self.loop && [self avQueuePlayer].itemsForPlayer.count > 0) {
+            [[self avQueuePlayer] setCurrentIndex:0];
             [[self avQueuePlayer] play];
         } else {
             [self onStatus:RMXSTATUS_STOPPED trackId:@"INVALID" param:nil];
