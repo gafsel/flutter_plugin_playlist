@@ -1,0 +1,24 @@
+
+csquid:S1192]"LDefine a constant instead of duplicating this literal "currentItem" 3 times.(…¸
+esquid:S1192‰"HDefine a constant instead of duplicating this literal "INVALID" 3 times.(²áó„úÿÿÿÿ
+dsquid:S1192\"MDefine a constant instead of duplicating this literal "currentIndex" 4 times.(ú¤Õû
+Esquid:S1199Û"-Extract this nested code block into a method.(¾²—Î
+Jsquid:S1199á"-Extract this nested code block into a method.(íìãÀúÿÿÿÿ
+Jsquid:S1199½"-Extract this nested code block into a method.(ÆÂåïÿÿÿÿÿ
+Jsquid:S1199¾"-Extract this nested code block into a method.(±×ù«ûÿÿÿÿ
+Esquid:S1199À"-Extract this nested code block into a method.(Ä‹ğù
+Esquid:S1199Á"-Extract this nested code block into a method.(™Å€œ
+Esquid:S1199Â"-Extract this nested code block into a method.(ğ«Õ½
+Esquid:S1199Ã"-Extract this nested code block into a method.(İû¶Õ
+Esquid:S1444")Make this "public static TAG" field final(’Ş‚£úÿÿÿÿ
+‚"squid:ClassVariableVisibilityCheck"OMake TAG a static final constant or non-public and provide accessors if needed.(’Ş‚£úÿÿÿÿ
+jsquid:S3008"NRename this field "TAG" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’Ş‚£úÿÿÿÿ
+U"squid:SwitchLastCaseIsDefaultChecky""Add a default case to this switch.(ÎòÇÂûÿÿÿÿ
+isquid:S3776Ë"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(çÏà 
+osquid:S3776ˆ"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(—áà‹şÿÿÿÿ
+>squid:S1452µ"&Remove usage of generic wildcard type.(ó“¢î
+>squid:S1452µ"&Remove usage of generic wildcard type.(ó“¢î
+Jsquid:S1135¶"2Complete the task associated to this TODO comment.(—ƒÖç
+hsquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(öÃ°¼ûÿÿÿÿ
+csquid:CommentedOutCodeLine¨"<This block of commented-out lines of code should be removed.(Çå¹è
+hsquid:CommentedOutCodeLineÑ"<This block of commented-out lines of code should be removed.(™ŞÁ”øÿÿÿÿ

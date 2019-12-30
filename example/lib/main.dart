@@ -55,23 +55,24 @@ class _MyAppState extends State<MyApp> {
   }
 
   _prepare() async {
-    await rmxAudioPlayer.addAllItems([
+    await rmxAudioPlayer.setPlaylistItems([
       new AudioTrack(
           trackId: 'friend_bon_jovi',
           album: "Friends",
           artist: "Bon Jovi",
           assetUrl:
-              "https://www.soundboard.com/mediafiles/22/223554-d1826dea-bfc3-477b-a316-20ded5e63e08.mp3",
+          "https://www.soundboard.com/mediafiles/22/223554-d1826dea-bfc3-477b-a316-20ded5e63e08.mp3",
           title: "I'll be there for you"),
       new AudioTrack(
           album: "Friends",
           artist: "Ross",
           assetUrl:
-              "https://www.soundboard.com/mediafiles/22/223554-fea5dfff-6c80-4e13-b0cf-9926198f50f3.mp3",
+          "https://www.soundboard.com/mediafiles/22/223554-fea5dfff-6c80-4e13-b0cf-9926198f50f3.mp3",
           title: "The Sound"),
-    ]);
-
-    await _play();
+    ], options: new PlaylistItemOptions(
+      startPaused: false,
+      playFromPosition: 10,
+    ));
   }
 
   _playFromId() async {

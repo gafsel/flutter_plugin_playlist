@@ -103,11 +103,11 @@ static char kPlayerItemTimeRangesContext;
     float playFromPosition = options[@"playFromPosition"] != nil ? [options[@"playFromPosition"] floatValue] : 0.0f;
     BOOL startPaused = options[@"startPaused"] != nil ? [options[@"startPaused"] boolValue] : YES;
 
-    if (retainPosition) {
+
+    if (playFromPosition > 0.0f) {
+        seekToPosition = playFromPosition;
+    } else if (retainPosition) {
         seekToPosition = [self getTrackCurrentTime:nil];
-        if (playFromPosition > 0.0f) {
-            seekToPosition = playFromPosition;
-        }
     }
 
     // This will wait for the AVPlayerItemStatusReadyToPlay status change, and then trigger playback.

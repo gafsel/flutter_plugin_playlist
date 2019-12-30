@@ -151,44 +151,44 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
     }
 
     public void setOnErrorListener(OnErrorListener listener) {
-      errorListener = new WeakReference<>(listener);
+        errorListener = new WeakReference<>(listener);
     }
 
     public void setMediaControlsListener(MediaControlsListener listener) {
-      mediaControlsListener = new WeakReference<>(listener);
+        mediaControlsListener = new WeakReference<>(listener);
     }
 
     public boolean getResetStreamOnPause() {
-      return resetStreamOnPause;
+        return resetStreamOnPause;
     }
 
     public void setResetStreamOnPause(boolean val) {
-      resetStreamOnPause = val;
+        resetStreamOnPause = val;
     }
 
     public AudioTrack getCurrentErrorTrack() {
-      return currentErrorTrack;
+        return currentErrorTrack;
     }
 
     public void setCurrentErrorTrack(PlaylistItem errorItem) {
-        currentErrorTrack = (AudioTrack)errorItem;
+        currentErrorTrack = (AudioTrack) errorItem;
     }
 
     public boolean isPlaying() {
-      return getPlaylistHandler() != null && getPlaylistHandler().getCurrentMediaPlayer() != null && getPlaylistHandler().getCurrentMediaPlayer().isPlaying();
+        return getPlaylistHandler() != null && getPlaylistHandler().getCurrentMediaPlayer() != null && getPlaylistHandler().getCurrentMediaPlayer().isPlaying();
     }
 
     @Override
     public boolean onError(Exception e) {
         Log.i(TAG, "onError: " + e.toString());
         if (errorListener.get() != null) {
-          errorListener.get().onError(e);
+            errorListener.get().onError(e);
         }
         return true;
     }
 
     private boolean isShouldStopPlaylist() {
-      return shouldStopPlaylist;
+        return shouldStopPlaylist;
     }
 
     public void setShouldStopPlaylist(boolean shouldStopPlaylist) {
@@ -229,13 +229,13 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
 
     @Override
     public AudioTrack previous() {
-        setCurrentPosition(Math.max(0, getCurrentPosition() -1));
+        setCurrentPosition(Math.max(0, getCurrentPosition() - 1));
         AudioTrack prevItem = getCurrentItem();
 
         if (!previousInvoked) { // this command came from the notification, not the user
             Log.i(TAG, "PlaylistManager.previous: invoked via service.");
             if (mediaControlsListener.get() != null) {
-              mediaControlsListener.get().onPrevious(prevItem, getCurrentPosition());
+                mediaControlsListener.get().onPrevious(prevItem, getCurrentPosition());
             }
         }
 
@@ -249,11 +249,11 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
             setCurrentPosition(Math.min(getCurrentPosition() + 1, getItemCount()));
         } else {
             if (loop) {
-              setCurrentPosition(BasePlaylistManager.INVALID_POSITION);
+                setCurrentPosition(BasePlaylistManager.INVALID_POSITION);
             } else {
-              setShouldStopPlaylist(true);
-              raiseAndCheckOnNext();
-              return null;
+                setShouldStopPlaylist(true);
+                raiseAndCheckOnNext();
+                return null;
             }
         }
 
@@ -266,7 +266,7 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
         if (!nextInvoked) { // this command came from the notification, not the user
             Log.i(TAG, "PlaylistManager.next: invoked via service.");
             if (mediaControlsListener.get() != null) {
-              mediaControlsListener.get().onNext(nextItem, getCurrentPosition());
+                mediaControlsListener.get().onNext(nextItem, getCurrentPosition());
             }
         }
         nextInvoked = false;
@@ -278,50 +278,52 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
      */
 
     public void setAllItems(List<AudioTrack> items, PlaylistItemOptions options) {
-      clearItems();
-      addAllItems(items);
-      setCurrentPosition(0);
+        clearItems();
+        addAllItems(items);
+        setCurrentPosition(0);
 
-      // If the options said to start from a specific position, do so.
-      long seekStart = 0;
-      if (options.getRetainPosition()) {
+        // If the options said to start from a specific position, do so.
+        long seekStart = 0;
         if (options.getPlayFromPosition() > 0) {
-          seekStart = options.getPlayFromPosition();
-        } else {
-          MediaProgress progress = getCurrentProgress();
-          if (progress != null) {
-            seekStart = progress.getPosition();
-          }
+            seekStart = options.getPlayFromPosition();
+        } else if (options.getRetainPosition()) {
+            MediaProgress progress = getCurrentProgress();
+            if (progress != null) {
+                seekStart = progress.getPosition();
+            }
         }
-      }
 
-      // If the options said to start from a specific id, do so.
-      String idStart = null;
-      if (options.getRetainPosition()) {
-          if (options.getPlayFromId() != null) {
-              idStart = options.getPlayFromId();
-          }
-      }
-      if (idStart != null && !"".equals((idStart))) {
-          int code = idStart.hashCode();
-          setCurrentItem(code);
-      }
+        // If the options said to start from a specific id, do so.
+        String idStart = null;
+        if (options.getRetainPosition()) {
+            if (options.getPlayFromId() != null) {
+                idStart = options.getPlayFromId();
+            }
+        }
+        if (idStart != null && !"".equals((idStart))) {
+            int code = idStart.hashCode();
+            setCurrentItem(code);
+        }
 
-      // We assume that if the playlist is fully loaded in one go,
-      // that the next thing to happen will be to play. So let's start
-      // paused, which will allow the player to pre-buffer until the
-      // user says Go.
-      beginPlayback(seekStart, options.getStartPaused());
+        // We assume that if the playlist is fully loaded in one go,
+        // that the next thing to happen will be to play. So let's start
+        // paused, which will allow the player to pre-buffer until the
+        // user says Go.
+        beginPlayback(seekStart, options.getStartPaused());
     }
 
     public void addItem(AudioTrack item) {
-        if (item == null) { return; }
+        if (item == null) {
+            return;
+        }
         AudioTracks.add(item);
         setItems(AudioTracks);
     }
 
     public void insertItem(AudioTrack item, int index) {
-        if (item == null) { return; }
+        if (item == null) {
+            return;
+        }
         AudioTrack currentItem = getCurrentItem(); // may
         AudioTracks.add(index, item);
         setItems(AudioTracks);
@@ -343,68 +345,52 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
     }
 
     public AudioTrack removeItem(int index, String itemId) {
-      boolean wasPlaying = this.isPlaying();
-      if (this.getPlaylistHandler() != null) {
-          this.getPlaylistHandler().pause(true);
-      }
-      int currentPosition = getCurrentPosition();
-      AudioTrack currentItem = getCurrentItem(); // may be null
-      AudioTrack foundItem = null;
-      boolean removingCurrent = false;
+        int currentPosition = getCurrentPosition();
+        AudioTrack currentItem = getCurrentItem(); // may be null
 
-      // If isPlaying is true, and currentItem is not null,
-      // that implies that currentItem is the currently playing item.
-      // If removingCurrent gets set to true, we are removing the currently playing item,
-      // and we need to restart playback once we do.
+        AudioTrack foundItem = null;
+        int resolvedIndex = resolveItemPosition(index, itemId);
+        if (resolvedIndex >= 0 && resolvedIndex < AudioTracks.size()) {
+            foundItem = AudioTracks.get(resolvedIndex);
+            AudioTracks.remove(resolvedIndex);
 
-      int resolvedIndex = resolveItemPosition(index, itemId);
-      if (resolvedIndex >= 0) {
-          foundItem = AudioTracks.get(resolvedIndex);
-          if (foundItem == currentItem) {
-              removingCurrent = true;
-          }
-          AudioTracks.remove(resolvedIndex);
-      }
+            setItems(AudioTracks);
 
-      setItems(AudioTracks);
-      setCurrentPosition(removingCurrent ? currentPosition : AudioTracks.indexOf(currentItem));
-      this.beginPlayback(0, !wasPlaying);
+            if (resolvedIndex <= currentPosition) {
+                if (currentPosition == resolvedIndex) {
+                    boolean wasPlaying = this.isPlaying();
+                    if (this.getPlaylistHandler() != null) {
+                        this.getPlaylistHandler().pause(true);
+                    }
 
-      return foundItem;
+                    setCurrentPosition(AudioTracks.indexOf(currentItem));
+                    this.beginPlayback(0, !wasPlaying);
+                } else {
+                    setCurrentPosition(AudioTracks.indexOf(currentItem));
+                }
+            }
+        }
+
+        return foundItem;
     }
 
     public ArrayList<AudioTrack> removeAllItems(ArrayList<TrackRemovalItem> items) {
-      ArrayList<AudioTrack> removedTracks = new ArrayList<>();
-      boolean wasPlaying = this.isPlaying();
-      if (this.getPlaylistHandler() != null) {
-          this.getPlaylistHandler().pause(true);
-      }
-      int currentPosition = getCurrentPosition();
-      AudioTrack currentItem = getCurrentItem(); // may be null
-      boolean removingCurrent = false;
+        ArrayList<AudioTrack> removedTracks = new ArrayList<>();
 
-      for (TrackRemovalItem item : items) {
-          int resolvedIndex = resolveItemPosition(item.trackIndex, item.trackId);
-          if (resolvedIndex >= 0) {
-              AudioTrack foundItem = AudioTracks.get(resolvedIndex);
-              if (foundItem == currentItem) {
-                  removingCurrent = true;
-              }
-              removedTracks.add(foundItem);
-              AudioTracks.remove(resolvedIndex);
-          }
-      }
+        for (TrackRemovalItem item : items) {
+            AudioTrack removed = removeItem(item.trackIndex, item.trackId);
 
-      setItems(AudioTracks);
-      setCurrentPosition(removingCurrent ? currentPosition : AudioTracks.indexOf(currentItem));
-      this.beginPlayback(0, !wasPlaying);
+            if (removed != null) {
+                removedTracks.add(removed);
+            }
+        }
 
-      return removedTracks;
+        return removedTracks;
     }
 
     public void clearItems() {
         if (this.getPlaylistHandler() != null) {
-          this.getPlaylistHandler().stop();
+            this.getPlaylistHandler().stop();
         }
         AudioTracks.clear();
         setItems(AudioTracks);
@@ -425,11 +411,11 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
     }
 
     public boolean getLoop() {
-      return loop;
+        return loop;
     }
 
     public void setLoop(boolean newLoop) {
-      loop = newLoop;
+        loop = newLoop;
     }
 
     public float getVolumeLeft() {
@@ -458,18 +444,18 @@ public class PlaylistManager extends ListPlaylistManager<AudioTrack> implements 
         playbackSpeed = speed;
         if (currentMediaPlayer != null && currentMediaPlayer.get() != null && currentMediaPlayer.get() instanceof AudioApi) {
             Log.i("PlaylistManager", "setPlaybackSpeed completing with speed = " + speed);
-            ((AudioApi)currentMediaPlayer.get()).setPlaybackSpeed(playbackSpeed);
+            ((AudioApi) currentMediaPlayer.get()).setPlaybackSpeed(playbackSpeed);
         }
     }
 
     public void beginPlayback(long seekPosition, boolean startPaused) {
-      super.play(seekPosition, startPaused);
-      try {
-          setVolume(volumeLeft, volumeRight);
-          setPlaybackSpeed(playbackSpeed);
-      } catch (Exception e) {
-          Log.w(TAG, "beginPlayback: Error setting volume or playback speed: " + e.getMessage());
-      }
+        super.play(seekPosition, startPaused);
+        try {
+            setVolume(volumeLeft, volumeRight);
+            setPlaybackSpeed(playbackSpeed);
+        } catch (Exception e) {
+            Log.w(TAG, "beginPlayback: Error setting volume or playback speed: " + e.getMessage());
+        }
     }
 
     // If we wanted to implement a *native* player (like cordova-plugin-exoplayer),

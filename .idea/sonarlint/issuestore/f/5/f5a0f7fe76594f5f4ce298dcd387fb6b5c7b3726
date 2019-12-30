@@ -1,0 +1,11 @@
+
+fsquid:S1192°"IUse already-defined constant 'TAG' instead of duplicating its value here.(ğ ‡¨úÿÿÿÿ
+Lsquid:S1066­"/Merge this if statement with the enclosing one.(¹“Ìˆùÿÿÿÿ
+wsquid:UselessImportCheck"SRemove this unused import 'com.devbrackets.android.exomedia.core.api.VideoViewApi'.(Ê×˜Ï
+nsquid:S00116."VRename this field "AudioTracks" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÀÊ­¬
+squid:S1186_"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(­×›üüÿÿÿÿ
+˜squid:S1186d"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(±½ï½
+—squid:S1186i"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(É€¸w
+squid:S1186n"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¾Õııÿÿÿÿ
+squid:S1186s"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ãºÍ’ıÿÿÿÿ
+˜squid:S1186x"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ğè¸…

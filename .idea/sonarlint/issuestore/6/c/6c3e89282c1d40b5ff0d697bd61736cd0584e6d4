@@ -1,0 +1,17 @@
+
+Wsquid:UselessImportCheck"4Remove this unused import 'android.app.Application'.(¢¶ÿI
+Usquid:UselessImportCheck"1Remove this unused import 'android.app.Activity'.(‡ÊÍÆ
+jsquid:S3008!"NRename this field "TAG" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’Þ‚£úÿÿÿÿ
+`squid:S1192“"HDefine a constant instead of duplicating this literal "trackId" 4 times.(¼ÆýÀ
+Esquid:S1444!")Make this "public static TAG" field final(’Þ‚£úÿÿÿÿ
+_squid:S2259p"HA "NullPointerException" could be thrown; "playerItem" is nullable here.(òùÁ¼
+bsquid:S1192n"FDefine a constant instead of duplicating this literal "index" 3 times.(˜ö ‹ýÿÿÿÿ
+csquid:CommentedOutCodeLineÈ"<This block of commented-out lines of code should be removed.(«Óâ”
+Wsquid:UselessImportCheck".Remove this unused import 'android.os.Bundle'.(°þÊóøÿÿÿÿ
+csquid:CommentedOutCodeLineò"<This block of commented-out lines of code should be removed.(ÿØÆÉ
+hsquid:HiddenFieldCheckK"FRename "resetStreamOnPause" which hides the field declared at line 39.(ë„´¶
+Usquid:S1155Î">Use isEmpty() to check whether the collection is empty or not.(ÓÓƒ^
+jsquid:S3776A"SRefactor this method to reduce its Cognitive Complexity from 102 to the 15 allowed.(¡åƒŒ
+‚"squid:ClassVariableVisibilityCheck!"OMake TAG a static final constant or non-public and provide accessors if needed.(’Þ‚£úÿÿÿÿ
+[squid:S1155­">Use isEmpty() to check whether the collection is empty or not.(„šžÜþÿÿÿÿ
+Nsquid:S1135"2Complete the task associated to this TODO comment.(‚ÓÔ£þÿÿÿÿ
