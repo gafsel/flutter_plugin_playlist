@@ -1,3 +1,9 @@
+## 0.1.5 - 2019-12-30
+
+### Fixed
+
+* FIXed playFromPosition behavior
+
 ## 0.1.4 - 2019-12-11
 
 ### Fixed
