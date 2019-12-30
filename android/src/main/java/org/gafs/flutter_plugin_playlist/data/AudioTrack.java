@@ -8,7 +8,18 @@ import org.gafs.flutter_plugin_playlist.manager.PlaylistManager;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class AudioTrack implements PlaylistItem {
+
+    private static AssetResolver assetResolver;
+
+    public static void setAssetResolver(AssetResolver assetResolver) {
+        AudioTrack.assetResolver = assetResolver;
+    }
+
+    public interface AssetResolver {
+        String getAsset(String asset);
+    }
 
     private final Map<?, ?> config;
     private float bufferPercentFloat = 0f;
@@ -81,13 +92,25 @@ public class AudioTrack implements PlaylistItem {
 
     @Override
     public String getMediaUrl() {
-        return getOption("assetUrl", "");
+        String mediaUrl = getOption("assetUrl", "");
+        
+        if (mediaUrl.startsWith("asset://")) {
+            return assetResolver.getAsset(mediaUrl.substring(8));
+        }
+
+        return mediaUrl;
     }
 
     @Override
     public String getThumbnailUrl() {
         String albumArt = getOption("albumArt", "");
+
         if (albumArt.equals("")) { return null; } // we should have a good default here.
+
+        if (albumArt.startsWith("asset://")) {
+            return assetResolver.getAsset(albumArt.substring(8));
+        }
+
         return albumArt;
     }
 

@@ -14,6 +14,7 @@
 @implementation AVBidirectionalQueuePlayer {
     NSMutableArray * _itemsForPlayer;
     CMTime _estimatedDuration;
+    NSUInteger _lastPosition;
 }
 
 -(NSMutableArray *)itemsForPlayer {
@@ -37,6 +38,7 @@
     if (self) {
         self.itemsForPlayer = [NSMutableArray new];
         _estimatedDuration = kCMTimeZero;
+        _lastPosition = -1;
     }
     return self;
 }
@@ -125,7 +127,7 @@
 
 -(BOOL)isAtEnd
 {
-    if ([self currentIndex] >= [[self itemsForPlayer] count] - 1 || [self currentItem] == nil) {
+    if ([self currentIndex] >= [[self itemsForPlayer] count] - 1) {
         return YES;
     }
     return NO;
@@ -136,10 +138,21 @@
     return self.rate != 0.0f;
 }
 
+- (BOOL)isFinished
+{
+    return [self items].count == 0 && _lastPosition == [self itemsForPlayer].count - 1;
+}
+
 -(NSUInteger)currentIndex
 {
+    if (self.currentItem == nil) {
+        return -1;
+    }
+    
     // This method simply returns the now playing index
-    return [[self itemsForPlayer] indexOfObject:self.currentItem];
+    _lastPosition = [[self itemsForPlayer] indexOfObject:self.currentItem];
+    
+    return _lastPosition;
 }
 
 -(void)setCurrentIndex:(NSUInteger)currentIndex {
@@ -174,10 +187,6 @@
 
 -(void)play
 {
-    if ([self isAtEnd]) { // we could add a flag here to indicate looping
-        [self setCurrentIndex:0];
-    }
-
     [super play];
 }
 

@@ -548,19 +548,29 @@ static char kPlayerItemTimeRangesContext;
 {
     _wasPlayingInterrupted = NO;
     [self initializeMPCommandCenter];
+    
+    float position = [self getTrackCurrentTime:nil];
+    if (position > 3) {
+        [self seekTo:0 isCommand:NO];
+    } else {
+        if ([[self avQueuePlayer] isAtBeginning] && self.loop) {
+            [self avQueuePlayer].currentIndex = [self avQueuePlayer].itemsForPlayer.count - 1;
+            [self playCommand:NO];
+        } else {
+            [[self avQueuePlayer] playPreviousItem];
+        }
 
-    [[self avQueuePlayer] playPreviousItem];
+        if (isCommand) {
+            NSString * action = @"music-controls-previous";
+            NSLog(@"%@", action);
 
-    if (isCommand) {
-        NSString * action = @"music-controls-previous";
-        NSLog(@"%@", action);
-
-        AudioTrack* playerItem = (AudioTrack*)[self avQueuePlayer].currentItem;
-        NSDictionary* param = @{
-                                @"currentIndex": @([self avQueuePlayer].currentIndex),
-                                @"currentItem": [playerItem toDict]
-                                };
-        [self onStatus:RMX_STATUS_SKIP_BACK trackId:playerItem.trackId param:param];
+            AudioTrack* playerItem = (AudioTrack*)[self avQueuePlayer].currentItem;
+            NSDictionary* param = @{
+                                    @"currentIndex": @([self avQueuePlayer].currentIndex),
+                                    @"currentItem": [playerItem toDict]
+                                    };
+            [self onStatus:RMX_STATUS_SKIP_BACK trackId:playerItem.trackId param:param];
+        }
     }
 }
 
@@ -569,18 +579,23 @@ static char kPlayerItemTimeRangesContext;
     _wasPlayingInterrupted = NO;
     [self initializeMPCommandCenter];
 
-    [[self avQueuePlayer] advanceToNextItem];
+    if ([[self avQueuePlayer] isAtEnd] && self.loop) {
+        [self avQueuePlayer].currentIndex = 0;
+        [self playCommand:NO];
+    } else {
+        [[self avQueuePlayer] advanceToNextItem];
 
-    if (isCommand) {
-        NSString * action = @"music-controls-next";
-        NSLog(@"%@", action);
+        if (isCommand) {
+            NSString * action = @"music-controls-next";
+            NSLog(@"%@", action);
 
-        AudioTrack* playerItem = (AudioTrack *)[self avQueuePlayer].currentItem;
-        NSDictionary* param = @{
-                                @"currentIndex": @([self avQueuePlayer].currentIndex),
-                                @"currentItem": [playerItem toDict]
-                                };
-        [self onStatus:RMX_STATUS_SKIP_FORWARD trackId:playerItem.trackId param:param];
+            AudioTrack* playerItem = (AudioTrack *)[self avQueuePlayer].currentItem;
+            NSDictionary* param = @{
+                                    @"currentIndex": @([self avQueuePlayer].currentIndex),
+                                    @"currentItem": [playerItem toDict]
+                                    };
+            [self onStatus:RMX_STATUS_SKIP_FORWARD trackId:playerItem.trackId param:param];
+        }
     }
 }
 
@@ -699,28 +714,33 @@ static char kPlayerItemTimeRangesContext;
  *
  */
 
-- (void) playEvent:(MPRemoteCommandEvent *)event {
+- (MPRemoteCommandHandlerStatus) playEvent:(MPRemoteCommandEvent *)event {
     [self playCommand:YES];
+    return MPRemoteCommandHandlerStatusSuccess;
 }
 
-- (void) pauseEvent:(MPRemoteCommandEvent *)event {
+- (MPRemoteCommandHandlerStatus) pauseEvent:(MPRemoteCommandEvent *)event {
     [self pauseCommand:YES];
+    return MPRemoteCommandHandlerStatusSuccess;
 }
 
-- (void) togglePlayPauseTrackEvent:(MPRemoteCommandEvent *)event {
+- (MPRemoteCommandHandlerStatus) togglePlayPauseTrackEvent:(MPRemoteCommandEvent *)event {
     if ([self avQueuePlayer].isPlaying) {
         [self pauseCommand:YES];
     } else {
         [self playCommand:YES];
     }
+    return MPRemoteCommandHandlerStatusSuccess;
 }
 
-- (void) prevTrackEvent:(MPRemoteCommandEvent *)event {
+- (MPRemoteCommandHandlerStatus) prevTrackEvent:(MPRemoteCommandEvent *)event {
     [self playPrevious:YES];
+    return MPRemoteCommandHandlerStatusSuccess;
 }
 
-- (void) nextTrackEvent:(MPRemoteCommandEvent *)event {
+- (MPRemoteCommandHandlerStatus) nextTrackEvent:(MPRemoteCommandEvent *)event {
     [self playNext:YES];
+    return MPRemoteCommandHandlerStatusSuccess;
 }
 
 - (MPRemoteCommandHandlerStatus) changedThumbSliderOnLockScreen:(MPChangePlaybackPositionCommandEvent *)event {
@@ -946,7 +966,9 @@ static char kPlayerItemTimeRangesContext;
             [self onStatus:RMXSTATUS_PLAYLIST_COMPLETED trackId:@"INVALID" param:nil];
         }
 
-        if (self.loop && [self avQueuePlayer].itemsForPlayer.count > 0) {
+        if ([self avQueuePlayer].isFinished &&
+            self.loop && [self avQueuePlayer].itemsForPlayer.count > 0) {
+            [[self avQueuePlayer] setCurrentIndex:0];
             [[self avQueuePlayer] play];
         } else {
             [self onStatus:RMXSTATUS_STOPPED trackId:@"INVALID" param:nil];

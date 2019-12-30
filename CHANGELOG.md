@@ -1,3 +1,18 @@
+## 0.1.4 - 2019-12-11
+
+### Fixed
+
+* FIXed loop navigation ([ISSUE #11](https://github.com/gafsel/flutter_plugin_playlist/issues/11))
+* FIXed iOS 13 compatibility ([ISSUE #13](https://github.com/gafsel/flutter_plugin_playlist/issues/13))
+
+### Changed
+
+* Changed the back button behavior ([ISSUE #10](https://github.com/gafsel/flutter_plugin_playlist/issues/10))
+
+### Added
+
+* Added support for assets audios and images ([ISSUE #12](https://github.com/gafsel/flutter_plugin_playlist/issues/12))
+
 ## 0.1.3 - 2019-09-08
 
 ### Fixed

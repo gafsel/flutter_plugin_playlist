@@ -16,9 +16,17 @@
       methodChannelWithName:@"flutter_plugin_playlist"
             binaryMessenger:[registrar messenger]];
     FlutterPluginPlaylistPlugin* instance = [[FlutterPluginPlaylistPlugin alloc] init];
+    
   [registrar addMethodCallDelegate:instance channel:channel];
     
   [instance initialize: channel];
+    
+    AssetResolver assetResolver = ^NSURL* (NSString* assetUrl){
+        NSString* key = [registrar lookupKeyForAsset: assetUrl];
+        return [[NSBundle mainBundle] URLForResource:key withExtension:nil];
+    };
+    
+    [AudioTrack setAssetResolver:assetResolver];
 }
 
 - (void)initialize:(FlutterMethodChannel*) channel {

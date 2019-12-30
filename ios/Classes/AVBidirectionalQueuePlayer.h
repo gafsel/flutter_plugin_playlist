@@ -32,6 +32,7 @@
 -(BOOL)isAtBeginning;
 -(BOOL)isAtEnd;
 -(BOOL)isPlaying;
+-(BOOL)isFinished;
 
 -(CMTime)estimatedTotalDuration;
 -(CMTime)currentTimeOffsetInQueue;
