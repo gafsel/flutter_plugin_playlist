@@ -66,7 +66,7 @@ RmxAudioPlayer player = new RmxAudioPlayer();
 
 player.initialize();
 
-player.on('status', (eventName, arguments) {
+player.on('status', (eventName, {dynamic args}) {
 
    // TODO handle the status update
 
